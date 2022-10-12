@@ -30,7 +30,7 @@
     <div class="container p-3 my-3 text-dark">
         <div class="card rounded d-flex flex-row" style=" background-color: #FFeedd;">
             <div class="w-70 mr-5">
-                <a href="/index.php"><img src="/GrowToBeMe_LOGO_hp.png" class="img-fluid"></a>
+                <a href="/"><img src="/GrowToBeMe_LOGO_hp.png" class="img-fluid"></a>
             </div>
         </div>
         <?= $this->renderSection('menu') ?>
