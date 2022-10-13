@@ -14,7 +14,7 @@ class UserModel extends Model
     // protected $returnType     = 'array';
     // protected $useSoftDeletes = true;
 
-    protected $allowedFields = ['username', 'password', 'email'];
+    protected $allowedFields = ['username', 'password', 'email', 'admin'];
 
     // protected $useTimestamps = false;
     // protected $createdField  = 'created_at';
@@ -32,16 +32,16 @@ class UserModel extends Model
     public function checkAdmin($id){
         $db = \Config\Database::connect();
         $builder = $db->table("users");
-        $builder->select("id")->where("id", 1);
-        $userList = $builder->get()->getResult();
-        $userList = json_decode(json_encode($userList), true);
+        $builder->select("admin")->where("id", $id);
+        $adminCheck = $builder->get()->getResult();
+        $adminCheck = json_decode(json_encode($adminCheck), true);
 
-        foreach($userList as $user){
-            if($user == $id){
-                return true;
-            }   
+        $reutrnVal = false;
+
+        if ($adminCheck[0]["admin"] == "1"){
+            $reutrnVal = true;
         }
 
-        return false;
+        return $reutrnVal;
     }
 }
