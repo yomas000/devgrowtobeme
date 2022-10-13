@@ -7,8 +7,21 @@ use App\Models\FeedbackModel;
 class Admin extends BaseController
 {
     public function index()
-    {   
-        mail("thomas.ed.dick@gmail.com", "Sent from server", "Hello from growtobeme");
-        return "Maybe";
+    {
+        $session = session();
+        if ($session->get("admin")){
+            $data = [
+                "site_title" => "Admin Page"
+            ];
+
+            return view("adminView", $data);
+        }else{
+            
+        }
+    }
+
+    public function auth(){
+        $check_sum = 123456;
+        $sub_num = esc(htmlspecialchars($_POST["confCode"]));
     }
 }
