@@ -31,6 +31,11 @@
                         <li>
                             <a href="/friends">Friends</a>
                         </li>
+                        <?php if (!$admin) : ?>
+                            <li>
+                                <a href="/admin">Admin</a>
+                            </li>
+                        <?php endif; ?>
                     </ul>
                 </nav>
 

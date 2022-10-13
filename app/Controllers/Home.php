@@ -19,7 +19,8 @@ class Home extends BaseController
                     "site_title" => "Grow To Be me",
                     "auth" => true,
                     "username" => esc(htmlspecialchars($_POST['username'])),
-                    "cards" => $cards
+                    "cards" => $cards,
+                    "admin" => $session->get("admin")
                 ];
 
                 return view('indexVeiw', $data);
@@ -28,7 +29,8 @@ class Home extends BaseController
                     "site_title" => "Grow To Be me",
                     "auth" => false,
                     "error" => "Username or Password is incorrect",
-                    "cards" => $cards
+                    "cards" => $cards,
+                    "admin" => $session->get("admin")
                 ];
 
                 return view('indexVeiw', $data);
@@ -42,14 +44,16 @@ class Home extends BaseController
                 "site_title" => "Grow To Be me",
                 "auth" => true,
                 "username" => $session->get("username"),
-                "cards" => $cards
+                "cards" => $cards,
+                "admin" => $session->get("admin")
             ];
             return view('indexVeiw', $data);
         }else{
             $data = [
                 "site_title" => "Grow To Be me",
                 "auth" => false,
-                "cards" => $cards
+                "cards" => $cards,
+                "admin" => $session->get("admin")
             ];
             return view('indexVeiw', $data);
         }
@@ -84,7 +88,8 @@ class Home extends BaseController
         $sessData = [
             "id" => $id,
             "username" => $username,
-            "auth" => true
+            "auth" => true,
+            "admin" => $model->checkAdmin($id)
         ];
 
         $session->set($sessData);

@@ -28,4 +28,20 @@ class UserModel extends Model
     public function getId($username){
         
     }
+
+    public function checkAdmin($id){
+        $db = \Config\Database::connect();
+        $builder = $db->table("users");
+        $builder->select("id")->where("id", 1);
+        $userList = $builder->get()->getResult();
+        $userList = json_decode(json_encode($userList), true);
+
+        foreach($userList as $user){
+            if($user == $id){
+                return true;
+            }   
+        }
+
+        return false;
+    }
 }

@@ -46,6 +46,7 @@ $routes->get("/friends", "Friends");
 $routes->post("/friends", "Friends::friendRequests");
 $routes->get("/account", "Account");
 $routes->get("/tables/(:any)", "Scores::game/$1");
+$routes->get("/admin", "Admin");
 
 /*
  * --------------------------------------------------------------------
