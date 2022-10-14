@@ -5,7 +5,7 @@
     <div class="card p-5">
         <form action="/admin" class="form" method="post">
             <div class="form-group">
-                <label>Confomation Code:</label>
+                <label>Confirmation Code:</label>
                 <input class="form-control" type="number" name="confCode">
             </div>
             <div class="container d-flex justify-content-center">
