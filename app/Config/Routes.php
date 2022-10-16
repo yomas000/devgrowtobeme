@@ -48,6 +48,7 @@ $routes->get("/account", "Account");
 $routes->get("/tables/(:any)", "Scores::game/$1");
 $routes->get("/admin", "Admin");
 $routes->post("/admin", "Admin::auth");
+$routes->get("/test", "Test");
 
 /*
  * --------------------------------------------------------------------

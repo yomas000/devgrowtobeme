@@ -84,3 +84,27 @@ function signIn() {
     });
     console.log(username.value);
 }
+
+function addRow(){
+    var table = document.getElementById("adminGameTable")
+
+    var tablerow = document.createElement("tr");
+
+    for (i = 0; i < 4; i++){
+        var th = document.createElement("th");
+        var gamename = document.createElement("input");
+        gamename.classList.add("form-control");
+        th.appendChild(gamename);
+        tablerow.appendChild(th);
+    }
+    var th = document.createElement("th");
+    var button = document.createElement("button");
+    button.innerHTML = "Enter";
+    button.classList.add("btn", "btn-primary");
+    th.appendChild(button)
+    tablerow.appendChild(th);
+
+    table.appendChild(tablerow);
+
+
+}
