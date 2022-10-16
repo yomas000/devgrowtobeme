@@ -25,10 +25,6 @@ class UserModel extends Model
     // protected $validationMessages = [];
     // protected $skipValidation     = false;
 
-    public function getId($username){
-        
-    }
-
     public function checkAdmin($id){
         $db = \Config\Database::connect();
         $builder = $db->table("users");
@@ -43,5 +39,22 @@ class UserModel extends Model
         }
 
         return $reutrnVal;
+    }
+
+    public function getIdFromUser($username){
+        $db = \Config\Database::connect();
+        $builder = $db->table("users");
+        $userList = $builder->get()->getResult();
+        $userList = json_decode(json_encode($userList), true);
+
+        $id = 0;
+
+        foreach($userList as $user){
+            if ($user["username"] == $username){
+                $id = $user["id"];
+            }
+        }
+        
+        return $id;
     }
 }

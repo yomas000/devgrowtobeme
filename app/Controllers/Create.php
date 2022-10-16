@@ -53,7 +53,7 @@ class Create extends BaseController
                 $model->insert($user);
 
                 $friendModel = new FreindsModel();
-                $id = $friendModel->getIdFromUser($username);
+                $id = $model->getIdFromUser($username);
 
                 $scoreModel->setDefaultScores($id);
                 

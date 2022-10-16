@@ -111,14 +111,14 @@ class Friends extends BaseController
             }
 
             if ($_POST['type'] == "accept") {
-                $friendId = $friendModel->getIdFromUser($friendName);
+                $friendId = $model->getIdFromUser($friendName);
                 $thing = $friendModel->acceptFriends($session->get("id"), $friendId);
 
                 return $thing;
             }
 
             if ($_POST['type'] == "decline") {
-                $friendId = $friendModel->getIdFromUser($friendName);
+                $friendId = $model->getIdFromUser($friendName);
                 $thing = $friendModel->declineFriends($session->get("id"), $friendId);
 
                 return "success";
