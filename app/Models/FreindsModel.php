@@ -83,21 +83,4 @@ class FreindsModel extends Model
         $builder->where('friend2', $userId)->where("friend1", $friendId);
         $builder->delete();
     }
-
-    public function getIdFromUser($username){ //TODO: This should probably be in the userModel
-        $db = \Config\Database::connect();
-        $builder = $db->table("users");
-        $userList = $builder->get()->getResult();
-        $userList = json_decode(json_encode($userList), true);
-
-        $id = 0;
-
-        foreach($userList as $user){
-            if ($user["username"] == $username){
-                $id = $user["id"];
-            }
-        }
-        
-        return $id;
-    }
 }
