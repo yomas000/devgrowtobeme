@@ -86,4 +86,11 @@ class ScoreModel extends Model
 
         return $query[0];
     }
+
+    public function deleteGame($id){
+        $db = \Config\Database::connect();
+        $builder = $db->table("scores");
+        $builder->where("gameid", $id);
+        $builder->delete();
+    }
 }

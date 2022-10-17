@@ -6,8 +6,6 @@ use App\Models\UserModel;
 
 use App\Models\ScoreModel;
 
-use App\Models\FreindsModel;
-
 class Create extends BaseController
 {
     public function index()
@@ -52,7 +50,6 @@ class Create extends BaseController
 
                 $model->insert($user);
 
-                $friendModel = new FreindsModel();
                 $id = $model->getIdFromUser($username);
 
                 $scoreModel->setDefaultScores($id);

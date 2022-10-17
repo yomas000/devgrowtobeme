@@ -60,7 +60,7 @@ class Home extends BaseController
     }
 
     private function authenticate(){
-        $username = esc(htmlspecialchars($_POST['username']));
+        $username = esc(htmlspecialchars($_POST['username'])); //TODO: Change this to $this->request->getVar('name');
         $spass = esc(htmlspecialchars($_POST['password']));
         $session = session();
 

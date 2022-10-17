@@ -14,7 +14,7 @@ class ApiModel extends Model
     protected $returnType     = 'array';
     // protected $useSoftDeletes = true;
 
-    protected $allowedFields = ['username', 'password', 'email', 'admin'];
+    protected $allowedFields = ['api_key'];
 
     // protected $useTimestamps = false;
     // protected $createdField  = 'created_at';

@@ -15,20 +15,81 @@ class UserAPI extends ResourceController
 
     public function index()
     {
-        if ($this->authorize()) {
-            return $this->respond($this->model->findAll());
+        if ($this->authorize()) { //show all users
+            $users = $this->model->findAll();
+
+            for($i = 0; $i < count($users); $i++){
+                unset($users[$i]["id"]);
+            }
+
+            return $this->respond($users);
         }
     }
 
-    public function show($id = null){
+    public function show($id = null){ //show spesific user
         if ($this->authorize()) {
-            return "yes";
+            $id = esc($id);
+            $scoreModel = new ScoreModel;
+
+            $user = $this->model->find($id);
+            unset($user["id"]);
+            $scores = $scoreModel->getScoreForUser($id);
+
+            array_push($user, $scores);
+            return $this->respond($user);
         }
     }
 
-    public function update($id = null){
+    public function create(){ //Create users
+        $request = \Config\Services::request();
+        if ($this->authorize()) {
+            $username = esc($request->getVar("username"));
+            $password = hash("sha256", esc($request->getVar("password")), false);
+            $email = esc($request->getVar("email"));
+
+            $scoreModel = new ScoreModel();
+
+            $user = [
+                'username' => $username,
+                'email' => $email,
+                'password' => $password
+            ];
+
+            $this->model->insert($user);
+            $id = $this->model->getIdFromUser($username);
+            $scoreModel->setDefaultScores($id);
+
+            return $this->respond(["success"=> true]);
+
+        }
+    }
+
+    public function delete($id = null){ //delete a user
         if ($this->authorize()){
-            return "yes";
+            $id = esc($id);
+            $scoreModel = new ScoreModel;
+
+            $this->model->delete($id);
+            $scoreModel->delete($id);
+
+            return $this->respond(["success"=> true]);
+        }
+    }
+
+    public function update($id = null){ //Edit user
+        if ($this->authorize()){
+            $request = \Config\Services::request();
+            $username = esc($request->getVar("username"));
+            $password = hash("sha256", esc($request->getVar("password")), false);
+            $email = esc($request->getVar("email"));
+
+            $user = [
+                'username' => $username,
+                'email' => $email,
+                'password' => $password
+            ];
+
+            $this->model->update($id, $user);
         }
     }
 
