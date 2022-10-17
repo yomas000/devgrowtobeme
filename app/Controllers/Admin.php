@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Models\GameModel;
+use App\Models\UserModel;
 
 class Admin extends BaseController
 {
@@ -21,15 +22,18 @@ class Admin extends BaseController
     }
 
     public function auth(){
+        $session = session();
 
         $check_sum = 123456;
         $sub_num = esc(htmlspecialchars($_POST["confCode"]));
         $gameModel = new GameModel();
+        $userModel = new UserModel();
 
         if ($check_sum == $sub_num){
             $data = [
                 "site_title" => "Control Panel",
-                "gameList" => $gameModel->findAll()
+                "gameList" => $gameModel->findAll(),
+                "userList" => $userModel->findAll()
             ];
             return view("adminPage", $data);
         }

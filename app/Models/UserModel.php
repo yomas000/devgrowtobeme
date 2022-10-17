@@ -11,7 +11,7 @@ class UserModel extends Model
 
     protected $useAutoIncrement = true;
 
-    // protected $returnType     = 'array';
+    protected $returnType     = 'array';
     // protected $useSoftDeletes = true;
 
     protected $allowedFields = ['username', 'password', 'email', 'admin'];
