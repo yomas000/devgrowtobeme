@@ -42,10 +42,10 @@ class UserAPI extends ResourceController
             if ($apiModel->checkApiKey($apikey)) {
                 return true;
             } else {
-                $this->response->setStatusCode(401, 'HA! You thought you could get in did you. Think again!'); // API key wrong
+                $this->response->setStatusCode(401, 'X-API-Key is incorrect'); // API key wrong
             }
         }else{
-            $this->response->setStatusCode(401, 'HA! You thought you could get in did you. Think again!'); //API Key not found
+            $this->response->setStatusCode(401, 'X-API-Key header not found'); //API Key not found
         }
     }
 }
