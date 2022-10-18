@@ -10,36 +10,36 @@ class Reset extends BaseController
 {
     public function index($id) //TODO: save email in database to validate requested username
     {
-
-        $passModel = new PassModel();
-        $userModel = new UserModel();
-
         $data = [
-            "site_title" => "Password Recovery"
+            "site_title" => "Password Recovery",
+            "success" => false,
+            "id" => $id
         ];
+
+        if($this->request->getMethod() == "post"){
+            $passModel = new PassModel();
+            $userModel = new UserModel();
+
+            $password = esc($this->request->getVar("password"));
+            $password = hash("sha256", $password, False);
+
+            $username = esc($this->request->getVar("username"));
+            $uid = $userModel->getIdFromUser($username);
+
+            $dbemail = $passModel->getEmail($id);
+
+            if ($userModel->validateUser($dbemail, $username)){
+                $userModel->updatePass($uid, $password);
+                $passModel->where('reset_key', $id)->delete();
+                $data["success"] = true;
+            }
+        }
 
         return view("resetView", $data);
     }
 
     public function update(){
-        $passModel = new PassModel();
-        $userModel = new UserModel();
-
-        $password = esc($this->request->getVar("password"));
-        $password = hash("sha256", $password, False);
-
-        $username = esc($this->request->getVar("username"));
-        $id = $userModel->getIdFromUser($username);
-
-        $userModel->update($id, ["password" => $password]);
-        $passModel->where('reset_key', $id)->delete();
-
-        $data = [
-            "site_title" => "Password Recovery",
-            "success" => true
-        ];
-
-        return view("resetView", $data);
+        
     }
 
     public function mail(){
@@ -55,9 +55,12 @@ class Reset extends BaseController
             $email = esc($this->request->getVar("email", FILTER_VALIDATE_EMAIL));
             $num = rand(100, 1000);
 
-            $passModel->insert([
-                "reset_key"=> $num
-            ]);
+            $user = [
+                'email' => $email,
+                'reset_key' => $num,
+            ];
+
+            $passModel->addKey($user);
 
             $link = "http://localhost/reset/" . strval($num);
 
@@ -75,7 +78,7 @@ class Reset extends BaseController
             # Make the call to the client.
             $result = $mgClient->sendMessage($domain, $send);
 
-           $data["success"] = true;
+            $data["success"] = true;
         }
 
         return view("resetViewPrompt", $data);

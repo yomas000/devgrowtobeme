@@ -39,4 +39,19 @@ class PassModel extends Model
         }
     }
 
+    public function getEmail($id){
+        $db = \Config\Database::connect();
+        $builder = $db->table("pass_reset_keys");
+        $builder->select("email");
+        $builder->where("reset_key", $id);
+        $key = json_decode(json_encode($builder->get()->getResult()), true)[0]["email"];
+
+        return $key;
+    }
+
+    public function addKey($user){
+        $db = \Config\Database::connect();
+        $builder = $db->table("pass_reset_keys");
+        $builder->insert($user);
+    }
 }

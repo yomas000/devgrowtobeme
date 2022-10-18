@@ -59,4 +59,26 @@ class UserModel extends Model
         
         return $id;
     }
+
+    public function validateUser($email, $username){
+        $db = \Config\Database::connect();
+        $builder = $db->table("users");
+        $builder->select("email");
+        $builder->where("username", $username);
+        $dbemail = json_decode(json_encode($builder->get()->getResult()), true)[0]["email"];
+
+        if ($dbemail == $email){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    public function updatePass($id, $password){
+        $db = \Config\Database::connect();
+        $builder = $db->table("users");
+        $builder->set("password", $password);
+        $builder->where("id", $id);
+        $builder->update();
+    }
 }

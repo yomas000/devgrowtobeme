@@ -11,5 +11,11 @@
             <input type="submit" class="btn btn-primary" value="Enter">
         </form>
     <?php endif ?>
+    <?php if ($success) : ?>
+        <div class="card text-center">
+            <h1 class="btn btn-success">Success</h1>
+            <h3 class="">Check your email</h1>
+        </div>
+    <?php endif ?>
 </div>
 <?= $this->endSection() ?>
