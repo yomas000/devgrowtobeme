@@ -4,7 +4,7 @@ namespace App\Controllers;
 use App\Models\UserModel;
 use App\Models\PassModel;
 
-require '/vendor/autoload.php';
+require '/srv/backup2/vendor/autoload.php';
 use Mailgun\Mailgun;
 
 class Reset extends BaseController
