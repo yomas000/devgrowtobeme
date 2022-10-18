@@ -8,7 +8,7 @@ use App\Models\PassModel;
 
 class Reset extends BaseController
 {
-    public function index($id) //TODO: save email in database to validate requested username
+    public function index($id)
     {
         $data = [
             "site_title" => "Password Recovery",

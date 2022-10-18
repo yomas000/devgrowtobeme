@@ -7,6 +7,7 @@
             <div class="form-group">
                 <label for="email">Email</label>
                 <input type="email" class="form-control" name="email" id="email" placeholder="Enter email">
+                <small id="emailHelp" class="form-text text-muted">Make sure you put in the same email you used to create your account. CASE SENSITIVE</small>
             </div>
             <input type="submit" class="btn btn-primary" value="Enter">
         </form>
