@@ -90,21 +90,91 @@ function addRow(){
 
     var tablerow = document.createElement("tr");
 
+    var idArray = ["addgamename", "addgamedesc", "addfilepath", "addimgpath"]
+
     for (i = 0; i < 4; i++){
         var th = document.createElement("th");
-        var gamename = document.createElement("input");
-        gamename.classList.add("form-control");
-        th.appendChild(gamename);
+        var input = document.createElement("input");
+        input.classList.add("form-control");
+        input.setAttribute("id", idArray[i]);
+        th.appendChild(input);
         tablerow.appendChild(th);
     }
     var th = document.createElement("th");
     var button = document.createElement("button");
     button.innerHTML = "Enter";
     button.classList.add("btn", "btn-primary");
+    button.setAttribute("id", "addGame");
+    button.setAttribute("onclick", "addGame();")
     th.appendChild(button)
     tablerow.appendChild(th);
 
     table.appendChild(tablerow);
 
 
+}
+
+function updateGame(e){
+    var id = e.id;
+    var gamename = $("#gamename"+id)[0].value;
+    var gamedesc = $("#gamedesc"+id)[0].value;
+    var filepath = $("#filepath"+id)[0].value;
+    var imgpath = $("#imgpath"+id)[0].value;
+
+    var data = {
+        "gameName": gamename,
+        "gameDesc": gamedesc,
+        "filePath": filepath,
+        "imgPath": imgpath
+        }
+
+    $.ajax({
+        type: "put",
+        url: "/gameapi/" + id,
+        contentType: "application/json",
+        data: JSON.stringify(data),
+        success: function(result){
+            alert("Success!")
+            location.reload();
+        }
+    })
+}
+
+function deleteGame(e){
+    if (confirm("Are you sure you want to delete this game?")){
+        var id = e.id;
+        $.ajax({
+            type: "delete",
+            url: "/gameapi/" + id,
+            success: function(result){
+                location.reload();
+                console.log(result);
+            }
+        })
+    }
+}
+
+function addGame(){
+    var gamename = $("#addgamename")[0].value;
+    var gamedesc = $("#addgamedesc")[0].value;
+    var filepath = $("#addfilepath")[0].value;
+    var imgpath = $("#addimgpath")[0].value;
+
+    var data = {
+        "gameName": gamename,
+        "gameDesc": gamedesc,
+        "filePath": filepath,
+        "imgPath": imgpath
+        }
+
+    $.ajax({
+        type: "post",
+        url: "/gameapi",
+        contentType: "application/json",
+        data: JSON.stringify(data),
+        success: function(result){
+            alert("Success!")
+            location.reload();
+        }
+    })
 }

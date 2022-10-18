@@ -96,17 +96,22 @@ class UserAPI extends ResourceController
     private function authorize(){
         $apiModel = new ApiModel();
         $request = \Config\Services::request();
+        $session = session();
 
-        if ($request->hasHeader("X-API-Key")){
-            $apikey = $request->header("X-API-Key")->getValue();
-
-            if ($apiModel->checkApiKey($apikey)) {
-                return true;
-            } else {
-                $this->response->setStatusCode(401, 'X-API-Key is incorrect'); // API key wrong
-            }
+        if ($session->get('admin')){
+            return true;
         }else{
-            $this->response->setStatusCode(401, 'X-API-Key header not found'); //API Key not found
+            if ($request->hasHeader("X-API-Key")){
+                $apikey = $request->header("X-API-Key")->getValue();
+
+                if ($apiModel->checkApiKey($apikey)) {
+                    return true;
+                } else {
+                    $this->response->setStatusCode(401, 'X-API-Key is incorrect'); // API key wrong
+                }
+            }else{
+                $this->response->setStatusCode(401, 'X-API-Key header not found'); //API Key not found
+            }
         }
     }
 }

@@ -27,12 +27,12 @@
             <tbody id="adminGameTable">
                 <?php for($i = 0; $i < count($gameList); $i++) : ?>
                     <tr>
-                        <th><input class="form-control" type="text" value="<?= $gameList[$i]["gameName"]; ?>"></th>
-                        <th><input class="form-control" type="text" value="<?= $gameList[$i]["gameDescription"]; ?>"></th>
-                        <th><input class="form-control" type="text" value="<?= $gameList[$i]["filePath"]; ?>"></th>
-                        <th><input class="form-control" type="text" value="<?= $gameList[$i]["imgPath"]; ?>"></th>
-                        <th><button class="btn btn-success" id="u<?=$gameList[$i]['id'] ?>">Update</button></th>
-                        <th><button class="btn btn-danger" id="d<?=$gameList[$i]['id'] ?>">Delete</button></th>
+                        <th><input class="form-control" type="text" value="<?= $gameList[$i]["gameName"]; ?>" id = "gamename<?=$gameList[$i]['id']?>"></th>
+                        <th><input class="form-control" type="text" value="<?= $gameList[$i]["gameDescription"];?>"  id = "gamedesc<?=$gameList[$i]['id']?>"></th>
+                        <th><input class="form-control" type="text" value="<?= $gameList[$i]["filePath"]; ?>"  id = "filepath<?=$gameList[$i]['id']?>"></th>
+                        <th><input class="form-control" type="text" value="<?= $gameList[$i]["imgPath"]; ?>"  id = "imgpath<?=$gameList[$i]['id']?>"></th>
+                        <th><button class="btn btn-success" id="<?=$gameList[$i]['id']?>" onclick="updateGame(this);">Update</button></th>
+                        <th><button class="btn btn-danger" id="<?=$gameList[$i]['id']?>" onclick="deleteGame(this);">Delete</button></th>
                     </tr>
                 <?php endfor ?>
             </tbody> 

@@ -35,10 +35,10 @@ class GameAPI extends ResourceController
     public function create(){ //Create game
         if ($this->authorize()) {
             $request = \Config\Services::request();
-            $gamename = esc($request->getVar("gamename"));
+            $gamename = esc($request->getVar("gameName"));
             $gameDesc = esc($request->getVar("gameDesc"));
-            $filepath = esc($request->getVar("filepath"));
-            $imgpath = esc($request->getVar("imgpath"));
+            $filepath = esc($request->getVar("filePath"));
+            $imgpath = esc($request->getVar("imgPath"));
 
             $game = [
                 'gameName' => $gamename,
@@ -64,10 +64,10 @@ class GameAPI extends ResourceController
     public function update($id = null){ //Edit game
         if ($this->authorize()){
             $request = \Config\Services::request();
-            $gamename = esc($request->getVar("gamename"));
+            $gamename = esc($request->getVar("gameName"));
             $gameDesc = esc($request->getVar("gameDesc"));
-            $filepath = esc($request->getVar("filepath"));
-            $imgpath = esc($request->getVar("imgpath"));
+            $filepath = esc($request->getVar("filePath"));
+            $imgpath = esc($request->getVar("imgPath"));
 
             $game = [
                 'gameName' => $gamename,
@@ -78,24 +78,29 @@ class GameAPI extends ResourceController
 
             $this->model->update($id, $game);
 
-            return $this->respond(["success"=> true]);
+            return $this->respond($gameDesc);
         }
     }
 
     private function authorize(){ //check if the requested api key has the correct permissions
         $apiModel = new ApiModel();
         $request = \Config\Services::request();
+        $session = session();
 
-        if ($request->hasHeader("X-API-Key")){
-            $apikey = $request->header("X-API-Key")->getValue();
-
-            if ($apiModel->checkApiKey($apikey)) {
-                return true;
-            } else {
-                $this->response->setStatusCode(401, 'X-API-Key is incorrect'); // API key wrong
-            }
+        if ($session->get('admin')){
+            return true;
         }else{
-            $this->response->setStatusCode(401, 'X-API-Key header not found'); //API Key not found
+            if ($request->hasHeader("X-API-Key")){
+                $apikey = $request->header("X-API-Key")->getValue();
+
+                if ($apiModel->checkApiKey($apikey)) {
+                    return true;
+                } else {
+                    $this->response->setStatusCode(401, 'X-API-Key is incorrect'); // API key wrong
+                }
+            }else{
+                $this->response->setStatusCode(401, 'X-API-Key header not found'); //API Key not found
+            }
         }
     }
 }
