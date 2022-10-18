@@ -88,7 +88,7 @@ class Home extends BaseController
         $sessData = [
             "id" => $id,
             "username" => $username,
-            "auth" => true,
+            "auth" => $success,
             "admin" => $model->checkAdmin($id)
         ];
 

@@ -51,7 +51,10 @@ $routes->get("/account", "Account");
 $routes->get("/tables/(:any)", "Scores::game/$1");
 $routes->get("/admin", "Admin");
 $routes->post("/admin", "Admin::auth");
-$routes->get("/test", "Test");
+$routes->post("/reset", "Reset::update");
+$routes->get("/reset/(:num)", "Reset::index/$1");
+$routes->get("/resetmail", "Reset::mail");
+$routes->post("/resetmail", "Reset::mail");
 
 /*
  * --------------------------------------------------------------------

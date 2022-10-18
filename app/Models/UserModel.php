@@ -34,8 +34,10 @@ class UserModel extends Model
 
         $reutrnVal = false;
 
-        if ($adminCheck[0]["admin"] == "1"){
-            $reutrnVal = true;
+        if (count($adminCheck) > 0){
+            if ($adminCheck[0]["admin"] == "1"){
+                $reutrnVal = true;
+            }
         }
 
         return $reutrnVal;
