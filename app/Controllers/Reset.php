@@ -1,10 +1,10 @@
 <?php
 
-use Mailgun\Mailgun;
-
 namespace App\Controllers;
 use App\Models\UserModel;
 use App\Models\PassModel;
+
+use Mailgun\Mailgun;
 
 class Reset extends BaseController
 {
