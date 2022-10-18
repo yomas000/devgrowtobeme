@@ -4,7 +4,7 @@ namespace App\Controllers;
 use App\Models\UserModel;
 use App\Models\PassModel;
 
-use \Vendor\Mailgun\Mailgun;
+use \vendor\Mailgun\Mailgun;
 
 class Reset extends BaseController
 {
