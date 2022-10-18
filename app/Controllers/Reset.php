@@ -1,9 +1,8 @@
 <?php
 
-namespace App\Controllers;
-
-require 'vendor/autoload.php';
 use Mailgun\Mailgun;
+
+namespace App\Controllers;
 use App\Models\UserModel;
 use App\Models\PassModel;
 
