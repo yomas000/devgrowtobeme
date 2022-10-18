@@ -2,6 +2,7 @@
 
 namespace App\Controllers;
 
+require 'vendor/autoload.php';
 use Mailgun\Mailgun;
 use App\Models\UserModel;
 use App\Models\PassModel;
@@ -53,7 +54,7 @@ class Reset extends BaseController
 
         if ($this->request->getMethod() == 'post'){
             $email = esc($this->request->getVar("email", FILTER_VALIDATE_EMAIL));
-            $num = rand(100, 1000);
+            $num = rand(100, 5000);
 
             $user = [
                 'email' => $email,
