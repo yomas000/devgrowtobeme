@@ -29,7 +29,6 @@ class Reset extends BaseController
 
             $dbemail = $passModel->getEmail($id);
 
-            return var_dump($dbemail);
             if ($userModel->validateUser($dbemail, $username)){
                 $userModel->updatePass($uid, $password);
                 $passModel->where('reset_key', $id)->delete();
