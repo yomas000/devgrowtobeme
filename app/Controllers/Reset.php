@@ -29,11 +29,12 @@ class Reset extends BaseController
 
             $dbemail = $passModel->getEmail($id);
 
-            if ($userModel->validateUser($dbemail, $username)){
-                $userModel->updatePass($uid, $password);
-                $passModel->where('reset_key', $id)->delete();
-                $data["success"] = true;
-            }
+            return var_dump($dbemail);
+            // if ($userModel->validateUser($dbemail, $username)){
+            //     $userModel->updatePass($uid, $password);
+            //     $passModel->where('reset_key', $id)->delete();
+            //     $data["success"] = true;
+            // }
         }
 
         return view("resetView", $data);
