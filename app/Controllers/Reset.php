@@ -27,7 +27,7 @@ class Reset extends BaseController
             $username = esc($this->request->getVar("username"));
             $uid = $userModel->getIdFromUser($username);
 
-            $dbemail = $passModel->getEmail($id);
+            $dbemail = $passModel->getEmail(4946);
 
             return var_dump($dbemail);
             // if ($userModel->validateUser($dbemail, $username)){
