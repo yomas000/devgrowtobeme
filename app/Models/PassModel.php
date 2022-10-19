@@ -44,7 +44,7 @@ class PassModel extends Model
         $builder = $db->table("pass_reset_keys");
         $builder->select("email");
         $builder->where("reset_key", $id);
-        $key = json_decode(json_encode($builder->get()->getResult()), true);
+        $key = json_decode(json_encode($builder->get()->getResult()), true)[0]["email"];
 
         return $key;
     }

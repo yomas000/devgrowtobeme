@@ -27,13 +27,13 @@ class Reset extends BaseController
             $username = esc($this->request->getVar("username"));
             $uid = $userModel->getIdFromUser($username);
 
-            $dbemail = $passModel->getEmail($id);
-            return var_dump($dbemail);
-            // if ($userModel->validateUser($dbemail, $username)){
-            //     $userModel->updatePass($uid, $password);
-            //     $passModel->where('reset_key', $id)->delete();
-            //     $data["success"] = true;
-            // }
+            $dbemail = $passModel->getEmail($uid);
+
+            if ($userModel->validateUser($dbemail, $username)){
+                $userModel->updatePass($uid, $password);
+                $passModel->where('reset_key', $id)->delete();
+                $data["success"] = true;
+            }
         }
 
         return view("resetView", $data);
