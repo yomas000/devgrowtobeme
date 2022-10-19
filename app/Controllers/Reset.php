@@ -28,12 +28,12 @@ class Reset extends BaseController
             $uid = $userModel->getIdFromUser($username);
 
             $dbemail = $passModel->getEmail($id);
-
-            if ($userModel->validateUser($dbemail, $username)){
-                $userModel->updatePass($uid, $password);
-                $passModel->where('reset_key', $id)->delete();
-                $data["success"] = true;
-            }
+            return var_dump($dbemail);
+            // if ($userModel->validateUser($dbemail, $username)){
+            //     $userModel->updatePass($uid, $password);
+            //     $passModel->where('reset_key', $id)->delete();
+            //     $data["success"] = true;
+            // }
         }
 
         return view("resetView", $data);
@@ -63,7 +63,7 @@ class Reset extends BaseController
 
             $passModel->addKey($user);
 
-            $link = "http://localhost/reset/" . strval($num);
+            $link = "https://growtobe.me/reset/" . strval($num);
 
             $send = array(
                 'from'    => 'thomasd@mail.growtobe.me',
