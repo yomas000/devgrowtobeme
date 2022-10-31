@@ -6,7 +6,6 @@ use CodeIgniter\RESTful\ResourceController;
 use App\Models\UserModel;
 use App\Models\ScoreModel;
 use App\Models\ApiModel;
-use Kint\Zval\Value;
 
 class Userapi extends ResourceController
 {

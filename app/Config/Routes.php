@@ -35,8 +35,8 @@ $routes->set404Override();
 
 // We get a performance increase by specifying the default
 // route since we don't have to scan directories.
-$routes->resource('userapi');
-$routes->resource('gameapi');
+$routes->resource('Userapi');
+$routes->resource('Gameapi');
 
 $routes->get('/', 'Home::index');
 $routes->post("/auth", "Home::index");
