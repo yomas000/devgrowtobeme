@@ -5,7 +5,7 @@ use App\Models\UserModel;
 use App\Models\PassModel;
 
 require '/srv/backup2/vendor/autoload.php';
-use Mailgun;
+use Mailgun\Mailgun;
 
 class Reset extends BaseController
 {
@@ -63,7 +63,7 @@ class Reset extends BaseController
 
             $passModel->addKey($user);
 
-            $link = "http://localhost/reset/" . strval($num);
+            $link = "https://dev.growtobe.me/reset/" . strval($num); //TODO: remove this for officail release
 
             $send = array(
                 'from'    => 'thomasd@mail.growtobe.me',
