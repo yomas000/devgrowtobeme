@@ -22,10 +22,10 @@ class Admin extends BaseController
     }
 
     public function auth(){
-        $session = session();
+        // $session = session();
 
-        $check_sum = 9829485290;
-        $sub_num = esc(htmlspecialchars($_POST["confCode"]));
+        // $check_sum = 9829485290;
+        // $sub_num = esc(htmlspecialchars($_POST["confCode"]));
         echo "hello admin";
         // $gameModel = new GameModel();
         // $userModel = new UserModel();
