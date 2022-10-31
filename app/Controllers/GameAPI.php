@@ -8,7 +8,7 @@ use App\Models\ScoreModel;
 use App\Models\ApiModel;
 use Kint\Zval\Value;
 
-class GameAPI extends ResourceController
+class Gameapi extends ResourceController
 {
     protected $modelName = 'App\Models\GameModel';
     protected $format    = 'json';
