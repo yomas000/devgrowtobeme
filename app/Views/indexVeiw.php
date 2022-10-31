@@ -74,11 +74,11 @@
             <div class="card">
                 <h2 class="card-title"><?= $card["gameName"]; ?></h2>
                 <img src="<?= $card["imgPath"] ?>" class="rounded thumbnail" alt="Image of <?= $card['gameName']; ?>" onerror="this.src='game.webp'">
-                <p class="card-text"><?= $card["gameDescription"]; ?></p>
+                <p class="card-text pt-3 lead"><?= $card["gameDescription"]; ?></p>
 
                 <div class="container">
                     <div class="row">
-                        <a href="/games/<?= $card["id"] ?>" class="btn col-5 mr-5">See Game</a>
+                        <a href="/games/<?= $card["id"] ?>" class="btn col-5 mr-5">Play Game</a>
                         <a href="/tables/<?= $card["id"] ?>" class="btn col-5">Scores</a>
                     </div>
                 </div>
