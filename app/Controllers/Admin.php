@@ -26,7 +26,7 @@ class Admin extends BaseController
 
         // $check_sum = 9829485290;
         // $sub_num = esc(htmlspecialchars($_POST["confCode"]));
-        echo "hello admin";
+        return "hello admin";
         // $gameModel = new GameModel();
         // $userModel = new UserModel();
 
