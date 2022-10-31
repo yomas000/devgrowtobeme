@@ -26,16 +26,17 @@ class Admin extends BaseController
 
         $check_sum = 9829485290;
         $sub_num = esc(htmlspecialchars($_POST["confCode"]));
-        $gameModel = new GameModel();
-        $userModel = new UserModel();
+        echo "hello admin";
+        // $gameModel = new GameModel();
+        // $userModel = new UserModel();
 
-        if ($check_sum == $sub_num){
-            $data = [
-                "site_title" => "Control Panel",
-                "gameList" => $gameModel->findAll(),
-                "userList" => $userModel->findAll()
-            ];
-            return view("adminPage", $data);
-        }
+        // if ($check_sum == $sub_num){
+        //     $data = [
+        //         "site_title" => "Control Panel",
+        //         "gameList" => $gameModel->findAll(),
+        //         "userList" => $userModel->findAll()
+        //     ];
+        //     return view("adminPage", $data);
+        // }
     }
 }
