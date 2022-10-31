@@ -12,7 +12,7 @@ class Gameapi extends ResourceController
 {
     protected $modelName = 'App\Models\GameModel';
     protected $format    = 'json';
-
+ 
     public function index()
     {
         if ($this->authorize()) { //show all games
