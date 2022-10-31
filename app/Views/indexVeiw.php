@@ -25,7 +25,7 @@
                     <ul class="list-unstyled components collapse" id="homeSubmenu">
 
                         <li>
-                            <a href="/account">Acount</a>
+                            <a href="/account">Account</a>
                         </li>
 
                         <li>
