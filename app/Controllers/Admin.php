@@ -30,12 +30,14 @@ class Admin extends BaseController
         // $userModel = new UserModel();
 
         // if ($check_sum == $sub_num){
-            $data = [
-                "site_title" => "Control Panel",
-                "gameList" => $gameModel->findAll(),
-                "userList" => $userModel->findAll()
-            ];
-            return view("adminPage", $data);
+            // $data = [
+            //     "site_title" => "Control Panel",
+            //     "gameList" => $gameModel->findAll(),
+            //     "userList" => $userModel->findAll()
+            // ];
+            // return view("adminPage", $data);
         // }
+
+        return $this->header("404 Page not found");
     }
 }
