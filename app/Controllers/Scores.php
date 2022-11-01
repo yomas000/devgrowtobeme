@@ -22,19 +22,26 @@ class Scores extends BaseController
         $id = esc(htmlspecialchars($id));
         $model = new ScoreModel();
         $scores = $model->getScoresForGameId($id);
+        $len = count($scores);
 
-        for ($i = 0; $i < count($scores); $i++){ //Remove users of 0 score
-                if ($scores[$i]['score'] == '0'){
+        for ($i = 0; $i < $len; $i++){ //Remove users of 0 score
+                if ($scores[$i]['score'] == "0"){
                     unset($scores[$i]);
                 }
         }
-
-
+        
         if (count($scores) == 1) {
             foreach($scores as $score){ //I don't know which index is left in the array so I have to use a foreach loop
                 if ($score['score'] == '0'){
                     $scores = [];
                 }
+            }
+        }else{
+            $i = 1;
+            foreach ($scores as &$score) {
+
+                $score['place'] = $i;
+                $i++;
             }
         }
 

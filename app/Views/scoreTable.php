@@ -10,13 +10,13 @@
     </thead>
     <tbody>
         <?php if (count($scores) != 0) : ?>
-            <?php for ($i = 0; $i < count($scores); $i++) : ?>
+            <?php foreach($scores as $score) : ?>
                 <tr>
-                    <th scope="row"><?= $i + 1 ?></th>
-                    <td><?= $scores[$i]["username"] ?></td>
-                    <td><?= $scores[$i]["score"] ?></td>
+                    <th scope="row"><?= $score['place']?></th>
+                    <td><?= $score["username"] ?></td>
+                    <td><?= $score["score"] ?></td>
                 </tr>
-            <?php endfor ?>
+            <?php endforeach; ?>
         <?php endif; ?>
     </tbody>
 </table>
