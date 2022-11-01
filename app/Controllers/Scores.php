@@ -23,7 +23,7 @@ class Scores extends BaseController
         $model = new ScoreModel();
         $scores = $model->getScoresForGameId($id);
 
-        for ($i = 0; $i < count($scores); $i++){
+        for ($i = 0; $i < count($scores); $i++){ //Remove users of 0 score
                 if ($scores[$i]['score'] == '0'){
                     unset($scores[$i]);
                 }
@@ -31,7 +31,7 @@ class Scores extends BaseController
 
 
         if (count($scores) == 1) {
-            foreach($scores as $score){
+            foreach($scores as $score){ //I don't know which index is left in the array so I have to use a foreach loop
                 if ($score['score'] == '0'){
                     $scores = [];
                 }
