@@ -8,6 +8,7 @@
                 Sign In
             </button>
             <a href="/create"><button class="btn btn-primary border-0">Create Account</button></a>
+            <a href="/resetmail"><button class="btn btn-primary border-0">Reset Password</button></a>
         <?php endif; ?>
     </div>
 
@@ -47,7 +48,6 @@
             <?php if (isset($error)) : ?>
                 <div class='card text-center' style='background-color: #f7a028;'>
                     <h4><?= $error ?></h4>
-                    <a href="/resetmail"><button class="btn btn-primary border-0">Reset Password</button></a>
                 </div>
             <?php endif; ?>
         <?php endif; ?>
