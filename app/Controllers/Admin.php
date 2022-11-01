@@ -24,20 +24,18 @@ class Admin extends BaseController
     public function auth(){
         // $session = session();
 
-        // $check_sum = 9829485290;
-        // $sub_num = esc(htmlspecialchars($_POST["confCode"]));
-        // $gameModel = new GameModel();
-        // $userModel = new UserModel();
+        $check_sum = 9829485290;
+        $sub_num = esc(htmlspecialchars($_POST["confCode"]));
+        $gameModel = new GameModel();
+        $userModel = new UserModel();
 
-        // if ($check_sum == $sub_num){
-            // $data = [
-            //     "site_title" => "Control Panel",
-            //     "gameList" => $gameModel->findAll(),
-            //     "userList" => $userModel->findAll()
-            // ];
-            // return view("adminPage", $data);
-        // }
-
-        return $this->header("404 Page not found");
+        if ($check_sum == $sub_num){
+            $data = [
+                "site_title" => "Control Panel",
+                "gameList" => $gameModel->findAll(),
+                "userList" => $userModel->findAll()
+            ];
+            return view("adminPage", $data);
+        }
     }
 }
