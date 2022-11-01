@@ -21,10 +21,26 @@ class Scores extends BaseController
     public function game($id){
         $id = esc(htmlspecialchars($id));
         $model = new ScoreModel();
+        $scores = $model->getScoresForGameId($id);
+
+        for ($i = 0; $i < count($scores); $i++){
+                if ($scores[$i]['score'] == '0'){
+                    unset($scores[$i]);
+                }
+        }
+
+
+        if (count($scores) == 1) {
+            foreach($scores as $score){
+                if ($score['score'] == '0'){
+                    $scores = [];
+                }
+            }
+        }
 
         $data = [
             "site_title" => "Scores",
-            "scores" => $model->getScoresForGameId($id)
+            "scores" => $scores
         ];
 
         return view("scoreTable", $data);

@@ -18,10 +18,6 @@ class UserAPI extends ResourceController
         if ($this->authorize()) { //show all users
             $users = $this->model->findAll();
 
-            for($i = 0; $i < count($users); $i++){
-                unset($users[$i]["id"]);
-            }
-
             return $this->respond($users);
         }
     }
