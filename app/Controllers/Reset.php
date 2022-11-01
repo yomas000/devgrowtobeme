@@ -63,7 +63,7 @@ class Reset extends BaseController
 
             $passModel->addKey($user);
 
-            $link = "https://dev.growtobe.me/reset/" . strval($num); //TODO: remove this for officail release
+            $link = "https://www.growtobe.me/reset/" . strval($num); //TODO: remove this for officail release
 
             $send = array(
                 'from'    => 'thomasd@mail.growtobe.me',
