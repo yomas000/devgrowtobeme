@@ -22,7 +22,7 @@ class Admin extends BaseController
     }
 
     public function auth(){
-        // $session = session();
+        $session = session();
 
         $check_sum = 9829485290;
         $sub_num = esc(htmlspecialchars($_POST["confCode"]));
