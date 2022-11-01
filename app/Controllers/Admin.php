@@ -19,7 +19,6 @@ class Admin extends BaseController
         }else{
             throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
         }
-        return "hello";
     }
 
     public function auth(){
