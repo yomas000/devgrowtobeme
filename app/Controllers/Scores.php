@@ -15,7 +15,7 @@ class Scores extends BaseController
 
         $gameopp = false;
 
-        $oppgames = [4];
+        $oppgames = [5];
         foreach ($oppgames as $game) {
             if ($game == $gameId) {
                 $gameopp = true;
@@ -34,7 +34,7 @@ class Scores extends BaseController
     public function game($id){
         $id = esc(htmlspecialchars($id));
         $model = new ScoreModel();
-        $oppgames = [4];
+        $oppgames = [5];
         $oppgame = false;
 
         //If game needs scores to be sorted by ascending
