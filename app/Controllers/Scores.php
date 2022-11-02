@@ -59,7 +59,7 @@ class Scores extends BaseController
                     unset($scores[$i]);
                 }
         }
-            //fix very nice error
+            //fix very niche error
         if (count($scores) == 1) {
             foreach($scores as $score){ //I don't know which index is left in the array so I have to use a foreach loop
                 if ($score['score'] == '0'){
