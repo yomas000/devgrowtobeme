@@ -90,13 +90,13 @@ class ScoreModel extends Model
                 $builder->update();
             }
         }else{
-            if ($score < $query[0]["score"]) {
+           // if ($score < $query[0]["score"]) {
                 $builder = $db->table("scores");
                 $builder->set("score", $score);
                 $builder->where("userid", $userid);
                 $builder->where("gameid", $gameid);
                 $builder->update();
-            }
+           // }
         }
 
         return $query[0];
