@@ -15,7 +15,7 @@
     <?php if ($success) : ?>
         <div class="card text-center">
             <h1 class="btn btn-success">Success</h1>
-            <h3 class="">Check your email</h1>
+            <h3 class="">Check your email (If you don't see it check your promotions or spam)</h1>
         </div>
     <?php endif ?>
 </div>
