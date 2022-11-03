@@ -77,11 +77,13 @@ class Userapi extends ResourceController
             $username = esc($request->getVar("username"));
             $password = hash("sha256", esc($request->getVar("password")), false);
             $email = esc($request->getVar("email"));
+            $admin = esc($request->getVar("admin"));
 
             $user = [
                 'username' => $username,
                 'email' => $email,
-                'password' => $password
+                'password' => $password,
+                'admin' => $admin
             ];
 
             $this->model->update($id, $user);

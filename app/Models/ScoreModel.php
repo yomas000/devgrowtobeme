@@ -70,7 +70,7 @@ class ScoreModel extends Model
             $builder->insert($data);
         }
     }
-    public function setScore($userid, $gameid, $score, $scoreComp = true){
+    public function setScore($userid, $gameid, $score, $scoreGreaterComp = true){
         $db = \Config\Database::connect();
         $builder = $db->table("scores");
         $builder->select("score");
@@ -81,7 +81,7 @@ class ScoreModel extends Model
        
         $query = json_decode(json_encode($query), true);
 
-        if ($scoreComp){
+        if ($scoreGreaterComp){
             if ($score > $query[0]["score"]){
                 $builder = $db->table("scores");
                 $builder->set("score", $score);

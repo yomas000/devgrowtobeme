@@ -37,6 +37,7 @@ $routes->set404Override();
 // route since we don't have to scan directories.
 $routes->resource('userapi');
 $routes->resource('gameapi');
+$routes->resource('scoreapi');
 
 $routes->get('/', 'Home::index');
 $routes->post("/auth", "Home::index");

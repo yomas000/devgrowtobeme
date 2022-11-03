@@ -178,3 +178,53 @@ function addGame(){
         }
     })
 }
+
+function updateUser(e){
+    var id = e.id;
+    var username = $("#username" + id)[0].value;
+    var email = $("#email" + id)[0].value;
+    var password = $("#password" + id)[0].value;
+    var admin = $("#customSwitch" + id)[0].checked
+
+    console.log(admin);
+
+    var data = {
+        "username": username,
+        "email": email,
+        "password": password,
+        "admin": admin
+    }
+
+    $.ajax({
+        type: "put",
+        url: "/userapi/" + id,
+        contentType: "application/json",
+        data: JSON.stringify(data),
+        success: function (result) {
+            alert("Success!")
+            //location.reload();
+        }
+    })
+}
+
+function deleteUser(e){
+    if (confirm("Are you sure you want to delete this User?")) {
+        var id = e.id;
+        $.ajax({
+            type: "delete",
+            url: "/userapi/" + id,
+            success: function (result) {
+                location.reload();
+                console.log(result);
+            }
+        })
+    }
+}
+
+function addUser(){
+
+}
+
+function addRowUser(){
+  
+}
