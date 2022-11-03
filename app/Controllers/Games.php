@@ -12,7 +12,7 @@ class Games extends BaseController
     }
 
     public function game($id){
-        // return $id; //TODO: Sanitization here otherwise bad things
+        $id = esc($id);
 
         $model = new GameModel();
         $game = $model->find($id);

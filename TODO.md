@@ -1,10 +1,6 @@
 # Things Corban is begging me to do and I need to do
 
 ### To be done
-#### Before Release
-- [ ] Change Account details
-- [ ] Insert Scores for games
-##### After Release
 - [ ] Add categories for games
 - [ ] Move Friend Requests to a seperate tab from friends
 - [ ] Add a weekly score that actully works

@@ -37,12 +37,17 @@ class ScoreModel extends Model
         return json_decode(json_encode($query), true);
     }
 
-    public function getScoresForGameId($id){
+    public function getScoresForGameId($id, $desc = true){
         $db = \Config\Database::connect();
 
         $builder = $db->table('scores');
         $builder->select("username, score");
-        $builder->join("users", "scores.userid = users.id")->where("scores.gameid", $id)->orderBy("score", "DESC");
+        
+        if ($desc){
+            $builder->join("users", "scores.userid = users.id")->where("scores.gameid", $id)->orderBy("score", "DESC");
+        }else{
+            $builder->join("users", "scores.userid = users.id")->where("scores.gameid", $id)->orderBy("score", "ASC");
+        }
 
         $query = $builder->get()->getResult();
 
@@ -65,7 +70,7 @@ class ScoreModel extends Model
             $builder->insert($data);
         }
     }
-    public function setScore($userid, $gameid, $score){
+    public function setScore($userid, $gameid, $score, $scoreComp = true){
         $db = \Config\Database::connect();
         $builder = $db->table("scores");
         $builder->select("score");
@@ -76,12 +81,22 @@ class ScoreModel extends Model
        
         $query = json_decode(json_encode($query), true);
 
-        if ($score > $query[0]["score"]){
-            $builder = $db->table("scores");
-            $builder->set("score", $score);
-            $builder->where("userid", $userid);
-            $builder->where("gameid", $gameid);
-            $builder->update();
+        if ($scoreComp){
+            if ($score > $query[0]["score"]){
+                $builder = $db->table("scores");
+                $builder->set("score", $score);
+                $builder->where("userid", $userid);
+                $builder->where("gameid", $gameid);
+                $builder->update();
+            }
+        }else{
+           // if ($score < $query[0]["score"]) {
+                $builder = $db->table("scores");
+                $builder->set("score", $score);
+                $builder->where("userid", $userid);
+                $builder->where("gameid", $gameid);
+                $builder->update();
+           // }
         }
 
         return $query[0];

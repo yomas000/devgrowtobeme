@@ -13,7 +13,20 @@ class Scores extends BaseController
         $gameId = esc(htmlspecialchars($_POST["id"]));
         $score = esc(htmlspecialchars($_POST["score"]));
 
-        return json_encode($model->setScore($session->get("id"), $gameId, $score));
+        $gameopp = false;
+
+        $oppgames = [5];
+        foreach ($oppgames as $game) {
+            if ($game == $gameId) {
+                $gameopp = true;
+            }
+        }
+
+        if ($gameopp){
+            return json_encode($model->setScore($session->get("id"), $gameId, $score, false));
+        }else{
+            return json_encode($model->setScore($session->get("id"), $gameId, $score));
+        }
 
        }
     }
@@ -21,28 +34,53 @@ class Scores extends BaseController
     public function game($id){
         $id = esc(htmlspecialchars($id));
         $model = new ScoreModel();
-        $scores = $model->getScoresForGameId($id);
+        $oppgames = [5];
+        $oppgame = false;
+
+        //If game needs scores to be sorted by ascending
+        foreach($oppgames as $game){
+            if ($game == $id){
+                $oppgame = true;
+            }
+        }
+
+        if ($oppgame){
+            $scores = $model->getScoresForGameId($id, false);
+        }else{
+            $scores = $model->getScoresForGameId($id);
+        }
+        
+
+        //remove users who have a 0 score
         $len = count($scores);
 
-        for ($i = 0; $i < $len; $i++){ //Remove users of 0 score
+        for ($i = 0; $i < $len; $i++){
                 if ($scores[$i]['score'] == "0"){
                     unset($scores[$i]);
                 }
         }
-        
+            //fix very niche error
         if (count($scores) == 1) {
             foreach($scores as $score){ //I don't know which index is left in the array so I have to use a foreach loop
                 if ($score['score'] == '0'){
                     $scores = [];
                 }
             }
-        }else{
-            $i = 1;
-            foreach ($scores as &$score) {
+        }
 
-                $score['place'] = $i;
-                $i++;
+        //remove decimals for non games
+        if (!$oppgame){
+            foreach($scores as &$score){
+                $score['score'] = intval($score['score']);
             }
+        }
+
+        //Make the places for the table
+        $i = 1;
+        foreach ($scores as &$score) {
+
+            $score['place'] = $i;
+            $i++;
         }
 
         $data = [
