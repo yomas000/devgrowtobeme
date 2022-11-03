@@ -1,3 +1,7 @@
+document.addEventListener("DOMContentLoaded", function () {
+    alert("New Games Added!")
+});
+
 window.onload = function() {document.getElementById("signInButton").addEventListener("click", signIn);}
 
 function sendFriendRequest(){
