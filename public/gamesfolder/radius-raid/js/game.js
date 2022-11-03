@@ -1560,7 +1560,7 @@ window.setTimeout(sendScore, 2000);
 		  var url = window.location.href;
 		  var id = url.slice(-1);
 		  
-		  score = $.score//document.getElementById("fast_lap_time_value").innerHTML.slice(0, 4);
+		  score = JSON.parse(localStorage.getItem('radiusraid')).score;
 		
 		  $.post("/games", {
 		
