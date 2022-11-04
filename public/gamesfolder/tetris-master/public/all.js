@@ -308,7 +308,10 @@
                     if (e && !(e.length > 10)) {
                         t("userboard-send").removeEventListener("click", d), y(), (i.name = e);
                         var n = new XMLHttpRequest();
-                        n.open("POST", "https://tetris-tiurin.rhcloud.com/api/scores", !0),
+                        var url = window.location.href;
+                        var id = url.slice(-1);
+                        
+                        n.open("POST", "/games", !0),
                             n.setRequestHeader("Content-type", "application/x-www-form-urlencoded"),
                             (n.onreadystatechange = function () {
                                 n.readyState == XMLHttpRequest.DONE && 200 == n.status && (o(), u(), c());
