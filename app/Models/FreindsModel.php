@@ -54,10 +54,11 @@ class FreindsModel extends Model
     public function makeFriends($reqId, $frId){ //TODO: check if request is already sent
         $db = \Config\Database::connect();
         $builder = $db->table("friendlist");
+        $model = new UserModel();
 
         $data = [
             "friend1" => $reqId,
-            "friend2" => $this->getIdFromUser($frId)
+            "friend2" => $model->getIdFromUser($frId)
         ];
 
         $builder->insert($data);

@@ -4,10 +4,9 @@ namespace App\Controllers;
 
 use CodeIgniter\RESTful\ResourceController;
 use App\Models\UserModel;
-use App\Models\ScoreModel;
 use App\Models\ApiModel;
 
-class Sserapi extends ResourceController
+class Scoreapi extends ResourceController
 {
     protected $modelName = 'App\Models\ScoreModel';
     protected $format    = 'json';
@@ -15,7 +14,31 @@ class Sserapi extends ResourceController
     public function index()
     {
         if ($this->authorize()) { //show all users
-            $users = $this->model->findAll();
+            $usermodel = new UserModel();
+            $ids = $usermodel->getAllUserIds();
+
+            $users = [];
+
+            foreach($ids as $id){
+                $user = $this->model->getScoreForUser($id);
+                $username = $user[0]["username"];
+                $scores = [];
+
+                for ($i = 0; $i < count($user); $i++) {
+                    $game = [
+                        "game" => $user[$i]['gameName'],
+                        "score" => $user[$i]["score"]
+                    ];
+                    array_push($scores, $game);
+                }
+
+                $user1 = [
+                    "username" => $username,
+                    "scores" => $scores
+                ];
+                array_push($users, $user1);
+            }
+           
 
             return $this->respond($users);
         }
