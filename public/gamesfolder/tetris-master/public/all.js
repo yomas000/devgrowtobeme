@@ -309,19 +309,15 @@
                         t("userboard-send").removeEventListener("click", d), y(), (i.name = e);
                         var n = new XMLHttpRequest();
                         var url = window.location.href;
-                        var id = url.slice(-1);
-                        
+                        var id = parseInt(url.slice(-2), 10);
+
                         n.open("POST", "/games", !0),
                             n.setRequestHeader("Content-type", "application/x-www-form-urlencoded"),
                             (n.onreadystatechange = function () {
-                                n.readyState == XMLHttpRequest.DONE && 200 == n.status && (o(), u(), c());
+                                (o(), u());
                             }),
                             n.send(
-                                Object.keys(i)
-                                    .map(function (e) {
-                                        return e + "=" + i[e];
-                                    })
-                                    .join("&")
+                               "id=" + id + "&score=" + i.score
                             );
                         var o = r(t("userboard-send"));
                         try {
