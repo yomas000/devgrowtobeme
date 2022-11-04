@@ -15,7 +15,7 @@ class Create extends BaseController
         $scoreModel = new ScoreModel();
 
         $data = [
-            "site_title"=> "Grow To Be Me"
+            "site_title"=> "Create"
         ];
 
         if ($this->request->getMethod() == 'post'){
