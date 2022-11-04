@@ -310,7 +310,6 @@
                         var n = new XMLHttpRequest();
                         var url = window.location.href;
                         var id = url.slice(-2).replace("/", "");
-                        console.log(id);
 
                         n.open("POST", "/games", !0),
                             n.setRequestHeader("Content-type", "application/x-www-form-urlencoded"),
