@@ -96,29 +96,5 @@
         </script>
         <!-- Place this tag in your head or just before your close body tag. -->
         <script async defer="defer" src="https://buttons.github.io/buttons.js"></script>
-        <script>
-            window.setTimeout(sendScore, 2000);
-
-            function sendScore() {
-            var url = window.location.href;
-            var id = url.slice(-1);
-            
-            score = document.getElementById("fast_lap_time_value").innerHTML.slice(0, 6);
-
-            var position = 5; // its 1 based
-            var score = score.substring(0, position - 1) + score.substring(position, score.length);
-
-            // $.post("/games", {
-
-            //     "score": score,
-            //     "id": id
-
-            // }, function (data, status) {
-            //     console.log(data)
-            // });
-
-            console.log(score);
-            }
-        </script>
     </body>
 </html>
