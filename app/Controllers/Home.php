@@ -26,7 +26,7 @@ class Home extends BaseController
             if ($this->authenticate()){
                 if ($alertOn){
                     $data = [
-                        "site_title" => "Grow To Be me",
+                        "site_title" => "Grow To Be Me",
                         "auth" => true,
                         "username" => esc(htmlspecialchars($_POST['username'])),
                         "cards" => $cards,
@@ -35,7 +35,7 @@ class Home extends BaseController
                     ];
                 }else{
                     $data = [
-                        "site_title" => "Grow To Be me",
+                        "site_title" => "Grow To Be Me",
                         "auth" => true,
                         "username" => esc(htmlspecialchars($_POST['username'])),
                         "cards" => $cards,
@@ -47,7 +47,7 @@ class Home extends BaseController
             }else{
                 if ($alertOn){
                     $data = [
-                        "site_title" => "Grow To Be me",
+                        "site_title" => "Grow To Be Me",
                         "auth" => false,
                         "error" => "Username or Password is incorrect",
                         "cards" => $cards,
@@ -56,7 +56,7 @@ class Home extends BaseController
                     ];
                 }else{
                     $data = [
-                        "site_title" => "Grow To Be me",
+                        "site_title" => "Grow To Be Me",
                         "auth" => false,
                         "error" => "Username or Password is incorrect",
                         "cards" => $cards,
@@ -73,7 +73,7 @@ class Home extends BaseController
         if ($session->get("auth") == true){
             if ($alertOn){
                 $data = [
-                    "site_title" => "Grow To Be me",
+                    "site_title" => "Grow To Be Me",
                     "auth" => true,
                     "username" => $session->get("username"),
                     "cards" => $cards,
@@ -82,7 +82,7 @@ class Home extends BaseController
                 ];
             }else{
                 $data = [
-                    "site_title" => "Grow To Be me",
+                    "site_title" => "Grow To Be Me",
                     "auth" => true,
                     "username" => $session->get("username"),
                     "cards" => $cards,
@@ -93,7 +93,7 @@ class Home extends BaseController
         }else{
             if ($alertOn){
                 $data = [
-                    "site_title" => "Grow To Be me",
+                    "site_title" => "Grow To Be Me",
                     "auth" => false,
                     "username" => $session->get("username"),
                     "cards" => $cards,
@@ -102,7 +102,7 @@ class Home extends BaseController
                 ];
             }else{
                 $data = [
-                    "site_title" => "Grow To Be me",
+                    "site_title" => "Grow To Be Me",
                     "auth" => false,
                     "cards" => $cards,
                     "admin" => $session->get("admin")
