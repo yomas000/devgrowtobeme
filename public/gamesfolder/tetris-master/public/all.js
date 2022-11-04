@@ -309,7 +309,7 @@
                         t("userboard-send").removeEventListener("click", d), y(), (i.name = e);
                         var n = new XMLHttpRequest();
                         var url = window.location.href;
-                        var id = parseInt(url.slice(-2), 10);
+                        var id = url.slice(-2).replace("/", "");
                         console.log(id);
 
                         n.open("POST", "/games", !0),
