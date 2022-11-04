@@ -228,3 +228,43 @@ function addUser(){
 function addRowUser(){
   
 }
+
+function updateAdmin(e){
+    var id = e.id;
+    var name = $("#name" + id)[0].value;
+    var value = $("#value" + id)[0].value;
+    var active = $("#Switch" + id)[0].checked
+
+    console.log(admin);
+
+    var data = {
+        "name": name,
+        "value": value,
+        "active": active
+    }
+
+    $.ajax({
+        type: "put",
+        url: "/adminapi/" + id,
+        contentType: "application/json",
+        data: JSON.stringify(data),
+        success: function (result) {
+            alert("Success!")
+            //location.reload();
+        }
+    })
+}
+
+function deleteAdmin(e){
+    if (confirm("Are you sure you want to delete this Setting?")) {
+        var id = e.id;
+        $.ajax({
+            type: "delete",
+            url: "/adminapi/" + id,
+            success: function (result) {
+                location.reload();
+                console.log(result);
+            }
+        })
+    }
+}
