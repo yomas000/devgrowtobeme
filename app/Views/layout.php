@@ -34,7 +34,12 @@
     </style>
 
     <!-- Music -->
-    <audio id="player" hidden controls><source src="/music/ace-combat.mp3" type="audio/mp3"></audio>
+    <?php if (isset($autoplay)) : ?>
+        <?php if ($autoplay['active']) : ?>
+            <iframe src="/music/hacking-time.mp3" allow="autoplay" id="audio" style="display: none"></iframe>
+        <?php endif; ?>
+    <?php endif; ?>
+    <!-- <audio id="player" hidden controls><source src="/music/ace-combat.mp3" type="audio/mp3"></audio> -->
 
 </head>
 

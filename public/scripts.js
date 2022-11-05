@@ -268,3 +268,15 @@ function deleteAdmin(e){
         })
     }
 }
+
+function updateSetting(e){
+    var settingName = e.id;
+    var active = e.checked;
+
+    $.post("/account", {
+        settingName: settingName,
+        active: active
+    }, function(result){
+        
+    })
+}
