@@ -14,7 +14,7 @@ class SettingsModel extends Model
     protected $returnType     = 'array';
     // protected $useSoftDeletes = true;
 
-    protected $allowedFields = ['setting', 'value', 'active'];
+    protected $allowedFields = ['userid','setting', 'active'];
 
     // protected $useTimestamps = false;
     // protected $createdField  = 'created_at';
@@ -71,7 +71,7 @@ class SettingsModel extends Model
     public function getSettingUser($id, $setting){
         $db = \Config\Database::connect();
         $builder = $db->table("usersettings");
-        $builder->select("setting, value, active");
+        $builder->select("setting, active");
 
         $builder->where("userid", $id);
         $builder->where("setting", $setting);
@@ -82,7 +82,7 @@ class SettingsModel extends Model
     public function getSettingsUser($id){
         $db = \Config\Database::connect();
         $builder = $db->table("usersettings");
-        $builder->select("setting, value, active");
+        $builder->select("setting, active");
 
         $builder->where("userid", $id);
 
@@ -91,5 +91,43 @@ class SettingsModel extends Model
 
     public function getAllSettings(){
 
+    }
+
+    public function makeSettingUser($id){
+        $adminModel = new AdminModel();
+
+        $settings = explode(',', $adminModel->getSetting('userSettings', 'value'));
+
+        foreach($settings as $setting){
+            $db = \Config\Database::connect();
+            $builder = $db->table("userSettings");
+
+            $data = [
+                "userid" => $id,
+                "setting" => $setting,
+                "active" => 0
+            ];
+
+            $builder->insert($data);
+        }
+    }
+
+    public function initSettingsTable(){
+        $adminModel = new AdminModel();
+        $userModel = new UserModel();
+
+        $settingNames = explode(',', $adminModel->getSetting("userSettings", "value"));
+        $ids = $userModel->getAllUserIds();
+
+        for ($i = 0; $i < count($settingNames); $i++){
+            for ($j = 0; $j < count($ids); $j++){
+                $data = [
+                    "userid" => $ids[$j],
+                    "setting" => $settingNames[$i],
+                    "active" => 0
+                ];
+                $this->insert($data);
+            }
+        }
     }
 }

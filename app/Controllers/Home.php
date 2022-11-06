@@ -13,6 +13,7 @@ class Home extends BaseController
         $adminModel = new AdminModel();
         $session = \Config\Services::session();
         $settingsModel = new SettingsModel();
+        $usermodel = new UserModel();
 
         $cards = $model->findAll();
         $alertOn = false;
