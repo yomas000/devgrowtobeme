@@ -14,6 +14,9 @@
     <li class="nav-item">
         <a class="nav-link" id="scores-tab" data-toggle="tab" href="#scores" role="tab" aria-controls="scores" aria-selected="false">Scores</a>
     </li>
+    <li class="nav-item">
+        <a class="nav-link" id="scores-tab" data-toggle="tab" href="#admin" role="tab" aria-controls="admin" aria-selected="false">Admin</a>
+    </li>
 </ul>
 <div class="tab-content" id="myTabContent" role="tablist">
     <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="Games-tab">
@@ -87,6 +90,39 @@
     </div>
     <div class="tab-pane fade" id="scores" role="tabpanel" aria-labelledby="scores-tab">
         <h1>Scores</h1>
+    </div>
+    <div class="tab-pane fade" id="admin" role="tabpanel" aria-labelledby="admin-tab">
+    <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Setting Name</th>
+                    <th scope="col">Setting Value</th>
+                    <th scope="col">Active</th>
+                </tr>
+            </thead>
+            <tbody id="adminTable">
+                <?php for ($i = 0; $i < count($adminList); $i++) : ?>
+                    <tr>
+                        <th><input class="form-control" type="text" value="<?= $adminList[$i]["name"]; ?>" id="name<?= $adminList[$i]['id'] ?>"></th>
+                        <th><input class="form-control" type="text" value="<?= $adminList[$i]["value"]; ?>" id="value<?= $adminList[$i]['id'] ?>"></th>
+                        <th>
+                            <div class="custom-control custom-switch">
+                                <input type="checkbox" class="custom-control-input" id="Switch<?= $adminList[$i]['id'] ?>" <?php if ($adminList[$i]["active"] == 1) : ?> checked <?php endif; ?>>
+                                <label class="custom-control-label" for="Switch<?= $adminList[$i]['id'] ?>">Active</label>
+                            </div>
+                        </th>
+                        <th><button class="btn btn-success" id="<?= $adminList[$i]['id'] ?>" onclick="updateAdmin(this);">Update</button></th>
+                        <th><button class="btn btn-danger" id="<?= $adminList[$i]['id'] ?>" onclick="deleteAdmin(this);">Delete</button></th>
+                    </tr>
+                <?php endfor ?>
+            </tbody>
+        </table>
+        <div class="container text-center">
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-plus-circle hover-button" viewBox="0 0 16 16" onclick="addRow();">
+                <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
+                <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z" />
+            </svg>
+        </div>
     </div>
 </div>
 

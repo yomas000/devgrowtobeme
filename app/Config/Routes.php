@@ -38,6 +38,7 @@ $routes->set404Override();
 $routes->resource('userapi');
 $routes->resource('gameapi');
 $routes->resource('scoreapi');
+$routes->resource('adminapi');
 
 $routes->get('/', 'Home::index');
 $routes->post("/auth", "Home::index");
@@ -52,6 +53,7 @@ $routes->get("/account", "Account");
 $routes->get("/tables/(:any)", "Scores::game/$1");
 $routes->post("/admin", "Admin::auth");
 $routes->get("/admin", "Admin::index");
+$routes->put("/admin", "Admin::adminMisc");
 $routes->post("/reset/(:num)", "Reset::index/$1");
 $routes->get("/reset/(:num)", "Reset::index/$1");
 $routes->get("/resetmail", "Reset::mail");

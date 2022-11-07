@@ -33,6 +33,9 @@
         }
     </style>
 
+    <!-- Music -->
+    <audio id="player" hidden controls><source src="/music/ace-combat.mp3" type="audio/mp3"></audio>
+
 </head>
 
 <body>
@@ -43,6 +46,14 @@
                 <a href="/"><img src="/GrowToBeMe_LOGO_hp.png" class="img-fluid pl-4"></a>
             </div>
         </div>
+        <?php if (isset($alert)) : ?>
+            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                <strong><?=$alert?></strong>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            </div>
+        <?php endif; ?>
         <?= $this->renderSection('menu') ?>
     </div>
 

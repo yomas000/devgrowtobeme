@@ -2,36 +2,67 @@
 
 use App\Models\GameModel;
 use App\Models\UserModel;
+use App\Models\AdminModel;
 
 class Home extends BaseController
 {
     public function index()
     {
         $model = new GameModel();
+        $adminModel = new AdminModel();
         $session = \Config\Services::session();
 
         $cards = $model->findAll();
+        $alertOn = false;
+        $alert = '';
+
+        if ($adminModel->checkAlert()){
+            $alertOn = true;
+            $alert = $adminModel->getAlert();
+        }
 
         // //for the signin button
         if ($this->request->getMethod() == 'post'){ //TODO: Make sign in a ajax request then update page, check for already sign in 
             if ($this->authenticate()){
-                $data = [
-                    "site_title" => "Grow To Be me",
-                    "auth" => true,
-                    "username" => esc(htmlspecialchars($_POST['username'])),
-                    "cards" => $cards,
-                    "admin" => $session->get("admin")
-                ];
+                if ($alertOn){
+                    $data = [
+                        "site_title" => "Grow To Be Me",
+                        "auth" => true,
+                        "username" => esc(htmlspecialchars($_POST['username'])),
+                        "cards" => $cards,
+                        "admin" => $session->get("admin"),
+                        "alert" => $alert
+                    ];
+                }else{
+                    $data = [
+                        "site_title" => "Grow To Be Me",
+                        "auth" => true,
+                        "username" => esc(htmlspecialchars($_POST['username'])),
+                        "cards" => $cards,
+                        "admin" => $session->get("admin")
+                    ];
+                }
 
                 return view('indexVeiw', $data);
             }else{
-                $data = [
-                    "site_title" => "Grow To Be me",
-                    "auth" => false,
-                    "error" => "Username or Password is incorrect",
-                    "cards" => $cards,
-                    "admin" => $session->get("admin")
-                ];
+                if ($alertOn){
+                    $data = [
+                        "site_title" => "Grow To Be Me",
+                        "auth" => false,
+                        "error" => "Username or Password is incorrect",
+                        "cards" => $cards,
+                        "admin" => $session->get("admin"),
+                        "alert" => $alert
+                    ];
+                }else{
+                    $data = [
+                        "site_title" => "Grow To Be Me",
+                        "auth" => false,
+                        "error" => "Username or Password is incorrect",
+                        "cards" => $cards,
+                        "admin" => $session->get("admin")
+                    ];
+                }
 
                 return view('indexVeiw', $data);
             }
@@ -40,21 +71,43 @@ class Home extends BaseController
 
         //for auto login
         if ($session->get("auth") == true){
-            $data = [
-                "site_title" => "Grow To Be me",
-                "auth" => true,
-                "username" => $session->get("username"),
-                "cards" => $cards,
-                "admin" => $session->get("admin")
-            ];
+            if ($alertOn){
+                $data = [
+                    "site_title" => "Grow To Be Me",
+                    "auth" => true,
+                    "username" => $session->get("username"),
+                    "cards" => $cards,
+                    "admin" => $session->get("admin"),
+                    "alert" => $alert
+                ];
+            }else{
+                $data = [
+                    "site_title" => "Grow To Be Me",
+                    "auth" => true,
+                    "username" => $session->get("username"),
+                    "cards" => $cards,
+                    "admin" => $session->get("admin"),
+                ];
+            }
             return view('indexVeiw', $data);
         }else{
-            $data = [
-                "site_title" => "Grow To Be me",
-                "auth" => false,
-                "cards" => $cards,
-                "admin" => $session->get("admin")
-            ];
+            if ($alertOn){
+                $data = [
+                    "site_title" => "Grow To Be Me",
+                    "auth" => false,
+                    "username" => $session->get("username"),
+                    "cards" => $cards,
+                    "admin" => $session->get("admin"),
+                    "alert" => $alert
+                ];
+            }else{
+                $data = [
+                    "site_title" => "Grow To Be Me",
+                    "auth" => false,
+                    "cards" => $cards,
+                    "admin" => $session->get("admin")
+                ];
+            }
             return view('indexVeiw', $data);
         }
     }
