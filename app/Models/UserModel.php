@@ -81,4 +81,14 @@ class UserModel extends Model
         $builder->where("id", $id);
         $builder->update();
     }
+
+    public function getAllUserIds(){
+        $db = \Config\Database::connect();
+        $builder = $db->table("users");
+        $builder->select("id");
+        $builder->distinct();
+        $query = $builder->get()->getResult();
+
+        return json_decode(json_encode($query), true);
+    }
 }
