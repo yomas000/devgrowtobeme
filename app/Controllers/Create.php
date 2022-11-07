@@ -49,11 +49,9 @@ class Create extends BaseController
                     'password' => $password
                 ];
 
-                $model->insert($user);
+                $model->addUser($user);
 
                 $id = $model->getIdFromUser($username);
-
-                $scoreModel->setDefaultScores($id);
                 
                 $data = [
                     "id" => $id,

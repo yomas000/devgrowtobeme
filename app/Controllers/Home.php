@@ -3,6 +3,7 @@
 use App\Models\GameModel;
 use App\Models\UserModel;
 use App\Models\AdminModel;
+use App\Models\SettingsModel;
 
 class Home extends BaseController
 {
@@ -11,10 +12,13 @@ class Home extends BaseController
         $model = new GameModel();
         $adminModel = new AdminModel();
         $session = \Config\Services::session();
+        $settingsModel = new SettingsModel();
+        $usermodel = new UserModel();
 
         $cards = $model->findAll();
         $alertOn = false;
         $alert = '';
+        $id = $session->get("id");
 
         if ($adminModel->checkAlert()){
             $alertOn = true;
@@ -31,7 +35,8 @@ class Home extends BaseController
                         "username" => esc(htmlspecialchars($_POST['username'])),
                         "cards" => $cards,
                         "admin" => $session->get("admin"),
-                        "alert" => $alert
+                        "alert" => $alert,
+                        "autoplay" => $settingsModel->getSettingUser($id, "autoplay")
                     ];
                 }else{
                     $data = [
@@ -39,7 +44,8 @@ class Home extends BaseController
                         "auth" => true,
                         "username" => esc(htmlspecialchars($_POST['username'])),
                         "cards" => $cards,
-                        "admin" => $session->get("admin")
+                        "admin" => $session->get("admin"),
+                        "autoplay" => $settingsModel->getSettingUser($id, "autoplay")
                     ];
                 }
 
@@ -52,7 +58,7 @@ class Home extends BaseController
                         "error" => "Username or Password is incorrect",
                         "cards" => $cards,
                         "admin" => $session->get("admin"),
-                        "alert" => $alert
+                        "alert" => $alert,
                     ];
                 }else{
                     $data = [
@@ -60,7 +66,7 @@ class Home extends BaseController
                         "auth" => false,
                         "error" => "Username or Password is incorrect",
                         "cards" => $cards,
-                        "admin" => $session->get("admin")
+                        "admin" => $session->get("admin"),
                     ];
                 }
 
@@ -78,7 +84,8 @@ class Home extends BaseController
                     "username" => $session->get("username"),
                     "cards" => $cards,
                     "admin" => $session->get("admin"),
-                    "alert" => $alert
+                    "alert" => $alert,
+                    "autoplay" => $settingsModel->getSettingUser($id, "autoplay")
                 ];
             }else{
                 $data = [
@@ -87,6 +94,7 @@ class Home extends BaseController
                     "username" => $session->get("username"),
                     "cards" => $cards,
                     "admin" => $session->get("admin"),
+                    "autoplay" => $settingsModel->getSettingUser($id, "autoplay")
                 ];
             }
             return view('indexVeiw', $data);
@@ -98,14 +106,14 @@ class Home extends BaseController
                     "username" => $session->get("username"),
                     "cards" => $cards,
                     "admin" => $session->get("admin"),
-                    "alert" => $alert
+                    "alert" => $alert,
                 ];
             }else{
                 $data = [
                     "site_title" => "Grow To Be Me",
                     "auth" => false,
                     "cards" => $cards,
-                    "admin" => $session->get("admin")
+                    "admin" => $session->get("admin"),
                 ];
             }
             return view('indexVeiw', $data);

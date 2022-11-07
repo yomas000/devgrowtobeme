@@ -91,4 +91,16 @@ class UserModel extends Model
 
         return json_decode(json_encode($query), true);
     }
+
+    public function addUser($user){
+        $this->insert($user);
+
+        $id = $this->getIdFromUser($user["username"]);
+
+        $settingModel = new SettingsModel();
+        $settingModel->makeSettingUser($id);
+
+        $scoreModel = new ScoreModel();
+        $scoreModel->setDefaultScores($id);
+    }
 }
