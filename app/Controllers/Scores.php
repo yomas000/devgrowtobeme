@@ -2,6 +2,7 @@
 
 namespace App\Controllers;
 use App\Models\ScoreModel;
+use App\Models\GameModel;
 
 class Scores extends BaseController
 {
@@ -13,14 +14,9 @@ class Scores extends BaseController
         $gameId = esc(htmlspecialchars($_POST["id"]));
         $score = esc(htmlspecialchars($_POST["score"]));
 
-        $gameopp = false;
-
-        $oppgames = [7];
-        foreach ($oppgames as $game) {
-            if ($game == $gameId) {
-                $gameopp = true;
-            }
-        }
+        $gameModel = new GameModel();
+        $gameName =  $gameModel->getGamebyId($gameId);
+        $oppgame = $gameModel->isDecimal($gameName);
 
         if ($gameopp){
             return json_encode($model->setScore($session->get("id"), $gameId, $score, false));
@@ -34,15 +30,9 @@ class Scores extends BaseController
     public function game($id){
         $id = esc(htmlspecialchars($id));
         $model = new ScoreModel();
-        $oppgames = [7];
-        $oppgame = false;
-
-        //If game needs scores to be sorted by ascending
-        foreach($oppgames as $game){
-            if ($game == $id){
-                $oppgame = true;
-            }
-        }
+        $gameModel = new GameModel();
+        $gameName =  $gameModel->getGamebyId($id);
+        $oppgame = $gameModel->isDecimal($gameName);
 
         if ($oppgame){
             $scores = $model->getScoresForGameId($id, false);

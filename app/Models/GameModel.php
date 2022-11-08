@@ -57,4 +57,29 @@ class GameModel extends Model
             $builder->insert($data);
         }
     }
+
+    public function isDecimal($gameName){
+        $db = \Config\Database::connect();
+        $builder = $db->table("games");
+        $builder->select("isDecimal");
+        $builder->where("gameName", $gameName);
+
+        $query = json_decode(json_encode($builder->get()->getResult()), true);
+
+        if ($query[0]['isDecimal'] == '1'){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    public function getGamebyId($id){
+        $db = \Config\Database::connect();
+        $builder = $db->table("games");
+        $builder->select("gameName");
+        $builder->where("id", $id);
+
+        $query = json_decode(json_encode($builder->get()->getResult()), true);
+        return $query[0]["gameName"];
+    }
 }

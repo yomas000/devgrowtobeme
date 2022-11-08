@@ -7,6 +7,7 @@ use App\Models\ScoreModel;
 use App\Models\FreindsModel;
 
 use App\Models\UserModel;
+use App\Models\GameModel;
 
 class Friends extends BaseController
 {
@@ -15,6 +16,7 @@ class Friends extends BaseController
         $friendModel = new FreindsModel();
         $userModel = new UserModel();
         $scoreModel = new ScoreModel();
+        $gameModel = new GameModel();
 
         $session = session();
         $id = $session->get("id");
@@ -49,7 +51,13 @@ class Friends extends BaseController
                 
                 for ($j = 0; $j < count($result); $j++){
                     $gameName = $result[$j]["gameName"];
-                    $score = $result[$j]["score"];
+                    $score = 0;
+
+                    if ($gameModel->isDecimal($gameName)){
+                        $score = $result[$j]["score"];
+                    }else{
+                        $score = intVal($result[$j]["score"]);
+                    }
 
                     $userscore = [
                         "game" => $gameName,
