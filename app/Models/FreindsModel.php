@@ -84,4 +84,34 @@ class FreindsModel extends Model
         $builder->where('friend2', $userId)->where("friend1", $friendId);
         $builder->delete();
     }
+
+    public function deleteFriend($userId, $friendId){
+        $db = \Config\Database::connect();
+        $builder = $db->table("friendlist");
+
+        $builder->select('friend2');
+        $builder->where('friend1', $userId);
+
+        $freindsArray = json_decode(json_encode($builder->get()->getResult()), true);
+
+        foreach($freindsArray as $friend){
+            if ($friend["friend2"] == $friendId){
+                $builder->where('friend1', $userId)->where("friend2", $friendId);
+                $builder->delete();
+            }
+            echo var_dump($friend);
+        }
+
+        $builder->select('friend1');
+        $builder->where('friend2', $userId);
+
+        $freindsArray = json_decode(json_encode($builder->get()->getResult()), true);
+
+        foreach($freindsArray as $friend){
+            if ($friend["friend1"] == $friendId){
+                $builder->where('friend2', $userId)->where("friend1", $friendId);
+                $builder->delete();
+            }
+        }
+    }
 }

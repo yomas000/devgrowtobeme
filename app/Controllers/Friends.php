@@ -48,7 +48,7 @@ class Friends extends BaseController
                 ];
                 
                 for ($j = 0; $j < count($result); $j++){
-                    $gameName = $result[$j]["gameName"]; //TODO: if person has no scores submited it will break FIX: init all games with 0
+                    $gameName = $result[$j]["gameName"];
                     $score = $result[$j]["score"];
 
                     $userscore = [
@@ -77,6 +77,8 @@ class Friends extends BaseController
         $session = session();
         $model = new UserModel();
         $friendModel = new FreindsModel;
+        $userModel =  new UserModel();
+
         if (isset($_POST["type"])){
             $friendName = esc(htmlspecialchars($_POST["username"]));
             $id = $session->get("id");
@@ -120,6 +122,15 @@ class Friends extends BaseController
             if ($_POST['type'] == "decline") {
                 $friendId = $model->getIdFromUser($friendName);
                 $thing = $friendModel->declineFriends($session->get("id"), $friendId);
+
+                return "success";
+            }
+
+            if ($_POST['type'] == "delete") {
+                $username = esc($_POST["username"]);
+                $freindid = $userModel->getIdFromUser($username);
+
+                $friendModel->deleteFriend($session->get("id"), $freindid);
 
                 return "success";
             }

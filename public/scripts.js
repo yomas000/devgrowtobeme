@@ -56,6 +56,20 @@ function noFriends(e) {
     });
 }
 
+function deleteFriend(e){
+
+    if (confirm("Do you want to delete " + e.id + " as a freind?")){
+        $.post("/friends", {
+
+            "type": "delete",
+            "username": e.id
+    
+        }, function (data, status) {
+            location.reload();
+        });
+    }
+}
+
 function sendFeedback() {
     var feedback = document.getElementById("feedbackInput");
     $.post("/feedback", {
