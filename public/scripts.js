@@ -1,4 +1,11 @@
-window.onload = function() {document.getElementById("signInButton").addEventListener("click", signIn);}
+window.onload = function () {
+    document.getElementById("signInButton").addEventListener("click", signIn); 
+    document.getElementById("usermsg").addEventListener('keydown', (e) => {
+        if (e.key == "Enter"){
+            sendMessage();
+        }
+    })
+}
 
 function sendFriendRequest(){
     var statusDiv = document.getElementById("status");
