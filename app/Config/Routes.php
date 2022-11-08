@@ -39,6 +39,7 @@ $routes->resource('userapi');
 $routes->resource('gameapi');
 $routes->resource('scoreapi');
 $routes->resource('adminapi');
+$routes->resource('sessionapi');
 
 $routes->get('/', 'Home::index');
 $routes->post("/auth", "Home::index");
