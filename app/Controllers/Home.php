@@ -36,7 +36,7 @@ class Home extends BaseController
                         "cards" => $cards,
                         "admin" => $session->get("admin"),
                         "alert" => $alert,
-                        "autoplay" => $settingsModel->getSettingUser($id, "autoplay")
+                        "autoplay" => $settingsModel->getSettingUser($session->get("id"), "autoplay")
                     ];
                 }else{
                     $data = [
@@ -45,7 +45,7 @@ class Home extends BaseController
                         "username" => esc(htmlspecialchars($_POST['username'])),
                         "cards" => $cards,
                         "admin" => $session->get("admin"),
-                        "autoplay" => $settingsModel->getSettingUser($id, "autoplay")
+                        "autoplay" => $settingsModel->getSettingUser($session->get("id"), "autoplay")
                     ];
                 }
 
@@ -57,7 +57,7 @@ class Home extends BaseController
                         "auth" => false,
                         "error" => "Username or Password is incorrect",
                         "cards" => $cards,
-                        "admin" => $session->get("admin"),
+                        "admin" => false,
                         "alert" => $alert,
                     ];
                 }else{
@@ -66,7 +66,7 @@ class Home extends BaseController
                         "auth" => false,
                         "error" => "Username or Password is incorrect",
                         "cards" => $cards,
-                        "admin" => $session->get("admin"),
+                        "admin" => false
                     ];
                 }
 

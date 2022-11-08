@@ -76,7 +76,7 @@ class SettingsModel extends Model
         $builder->where("userid", $id);
         $builder->where("setting", $setting);
 
-        return json_decode(json_encode($builder->get()->getResult()), true);
+        return json_decode(json_encode($builder->get()->getResult()), true)[0];
     }
 
     public function getSettingsUser($id){

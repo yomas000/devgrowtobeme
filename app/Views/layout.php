@@ -35,7 +35,7 @@
 
     <!-- Music -->
     <?php if (isset($autoplay)) : ?>
-        <?php if ($autoplay) : ?>
+        <?php if ($autoplay["active"]) : ?>
             <iframe src="/music/hacking-time.mp3" allow="autoplay" id="audio" style="display: none"></iframe>
         <?php endif; ?>
     <?php endif; ?>
