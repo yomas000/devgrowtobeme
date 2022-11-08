@@ -294,3 +294,31 @@ function updateSetting(e){
         
     })
 }
+
+function sendMessage(){
+
+    var message = $("#usermsg")[0].value;
+
+    $("#usermsg")[0].value = "";
+
+    $.post("/friends", {
+
+        "type": "chatmsg",
+        "msg": message
+
+    }, function (data, status) {
+        loadLog();
+    });
+}
+
+function loadLog() {
+    $.ajax({
+        url: "log.html",
+        cache: false,
+        success: function (html) {
+            $("#chatbox").html(html); //Insert chat log into the #chatbox div               
+        },
+    });
+}
+
+setInterval(loadLog, 2500);

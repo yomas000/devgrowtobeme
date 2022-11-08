@@ -70,14 +70,16 @@ class Friends extends BaseController
 
         }
 
-        $data = [
-            "site_title" => "Friends",
-            "scores" => $scores,
-            // "result" => $scoreModel->getScore($friendArray[1]["friend2"]) TODO: Delete this (was for debugging)
-            "pendingFreinds" => $requestedFriends
+        if ($session->get('auth')){
+            $data = [
+                "site_title" => "Friends",
+                "scores" => $scores,
+                "name" => $session->get("username"),
+                "pendingFreinds" => $requestedFriends
 
-        ];
-        return view("friends", $data);
+            ];
+            return view("friends", $data);
+        }
 
     } 
 
@@ -88,10 +90,10 @@ class Friends extends BaseController
         $userModel =  new UserModel();
 
         if (isset($_POST["type"])){
-            $friendName = esc(htmlspecialchars($_POST["username"]));
             $id = $session->get("id");
 
             if ($_POST['type'] == "request"){
+                $friendName = esc(htmlspecialchars($_POST["username"]));
 
                 $userList = $model->findAll();
 
@@ -121,6 +123,7 @@ class Friends extends BaseController
             }
 
             if ($_POST['type'] == "accept") {
+                $friendName = esc(htmlspecialchars($_POST["username"]));
                 $friendId = $model->getIdFromUser($friendName);
                 $thing = $friendModel->acceptFriends($session->get("id"), $friendId);
 
@@ -128,6 +131,7 @@ class Friends extends BaseController
             }
 
             if ($_POST['type'] == "decline") {
+                $friendName = esc(htmlspecialchars($_POST["username"]));
                 $friendId = $model->getIdFromUser($friendName);
                 $thing = $friendModel->declineFriends($session->get("id"), $friendId);
 
@@ -141,6 +145,13 @@ class Friends extends BaseController
                 $friendModel->deleteFriend($session->get("id"), $freindid);
 
                 return "success";
+            }
+
+            if ($_POST["type"] == "chatmsg"){
+                $message = esc($_POST["msg"]) ?? null;
+                $session = session();
+                $htmlSting = "<div class='msgln'><span class='chat-time'>" . date("g:i A") . "</span> <b class='user-name'>" . $session->get("username") . "</b>" . $message . "<br></div>";
+                file_put_contents("log.html", $htmlSting, FILE_APPEND | LOCK_EX);
             }
         }
     }
