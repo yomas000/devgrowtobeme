@@ -2,6 +2,8 @@
 # Operating Specific Junk Files
 #-------------------------
 
+public/log.html
+
 # OS X
 .DS_Store
 .AppleDouble
