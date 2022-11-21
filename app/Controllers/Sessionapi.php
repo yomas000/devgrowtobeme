@@ -33,7 +33,11 @@ class Sessionapi extends ResourceController
             $re = '/id.*\"(.*)\";u/';
             preg_match_all($re, $sessionData, $matches, PREG_SET_ORDER, 0);
 
-            return json_encode($matches[0][1]);
+            $data = [
+                "id" => $matches[0][1]
+            ];
+
+            return json_encode($data);
         }
     }
 

@@ -8,6 +8,7 @@ use App\Models\FreindsModel;
 
 use App\Models\UserModel;
 use App\Models\GameModel;
+use App\Models\SettingsModel;
 
 class Friends extends BaseController
 {
@@ -70,18 +71,38 @@ class Friends extends BaseController
 
         }
 
+        $chatMessages = $this->chatMessages();
+
         if ($session->get('auth')){
             $data = [
                 "site_title" => "Friends",
                 "scores" => $scores,
                 "name" => $session->get("username"),
-                "pendingFreinds" => $requestedFriends
+                "pendingFreinds" => $requestedFriends,
+                "chatContents" => $chatMessages
 
             ];
             return view("friends", $data);
         }
 
     } 
+
+    private function chatMessages(){
+        $setModel = new SettingsModel();
+
+        $session = session();
+        $id = $session->get("id");
+        $famMode = $setModel->getSettingUser($id, "Family Mode")["active"];
+
+        if ($famMode){
+           
+        }else{
+            if (file_exists("log.html") && filesize("log.html") > 0) {
+                $contents = file_get_contents("log.html");
+                return $contents;
+            }
+        }
+    }
 
     public function friendRequests(){
         $session = session();
