@@ -18,7 +18,7 @@ class Scores extends BaseController
         $gameName =  $gameModel->getGamebyId($gameId);
         $oppgame = $gameModel->isDecimal($gameName);
 
-        if ($gameopp){
+        if ($oppgame){
             return json_encode($model->setScore($session->get("id"), $gameId, $score, false));
         }else{
             return json_encode($model->setScore($session->get("id"), $gameId, $score));
