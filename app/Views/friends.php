@@ -6,9 +6,6 @@
     <li class="nav-item">
         <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true">Friends</a>
     </li>
-    <li class="nav-item">
-        <a class="nav-link" id="pills-chat-tab" data-toggle="pill" href="#pills-chat" role="tab" aria-controls="pills-chat" aria-selected="false">Global Chat</a>
-    </li>
 </ul>
 
 
