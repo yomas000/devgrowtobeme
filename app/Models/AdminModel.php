@@ -49,4 +49,14 @@ class AdminModel extends Model
 
         return $setting;
     }
+
+    public function getSetting($settingName, $selection){
+        $db = \Config\Database::connect();
+        $builder = $db->table("adminSettings");
+
+        $builder->select($selection);
+        $builder->where('name', $settingName);
+
+       return json_decode(json_encode($builder->get()->getResult()), true)[0][$selection];
+    }
 }

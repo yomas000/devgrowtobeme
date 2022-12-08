@@ -2,6 +2,8 @@
 # Operating Specific Junk Files
 #-------------------------
 
+public/log.html
+
 # OS X
 .DS_Store
 .AppleDouble
@@ -125,3 +127,4 @@ nb-configuration.xml
 /phpunit*.xml
 /.phpunit.*.cache
 .htaccess
+public/log.html

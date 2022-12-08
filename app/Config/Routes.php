@@ -39,6 +39,7 @@ $routes->resource('userapi');
 $routes->resource('gameapi');
 $routes->resource('scoreapi');
 $routes->resource('adminapi');
+$routes->resource('sessionapi');
 
 $routes->get('/', 'Home::index');
 $routes->post("/auth", "Home::index");
@@ -50,6 +51,7 @@ $routes->post("/create", "Create");
 $routes->get("/friends", "Friends");
 $routes->post("/friends", "Friends::friendRequests");
 $routes->get("/account", "Account");
+$routes->post("/account", "Account::updateSetting");
 $routes->get("/tables/(:any)", "Scores::game/$1");
 $routes->post("/admin", "Admin::auth");
 $routes->get("/admin", "Admin::index");

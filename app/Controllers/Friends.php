@@ -7,6 +7,8 @@ use App\Models\ScoreModel;
 use App\Models\FreindsModel;
 
 use App\Models\UserModel;
+use App\Models\GameModel;
+use App\Models\SettingsModel;
 
 class Friends extends BaseController
 {
@@ -15,6 +17,7 @@ class Friends extends BaseController
         $friendModel = new FreindsModel();
         $userModel = new UserModel();
         $scoreModel = new ScoreModel();
+        $gameModel = new GameModel();
 
         $session = session();
         $id = $session->get("id");
@@ -48,8 +51,14 @@ class Friends extends BaseController
                 ];
                 
                 for ($j = 0; $j < count($result); $j++){
-                    $gameName = $result[$j]["gameName"]; //TODO: if person has no scores submited it will break FIX: init all games with 0
-                    $score = $result[$j]["score"];
+                    $gameName = $result[$j]["gameName"];
+                    $score = 0;
+
+                    if ($gameModel->isDecimal($gameName)){
+                        $score = $result[$j]["score"];
+                    }else{
+                        $score = intVal($result[$j]["score"]);
+                    }
 
                     $userscore = [
                         "game" => $gameName,
@@ -62,26 +71,50 @@ class Friends extends BaseController
 
         }
 
-        $data = [
-            "site_title" => "Friends",
-            "scores" => $scores,
-            // "result" => $scoreModel->getScore($friendArray[1]["friend2"]) TODO: Delete this (was for debugging)
-            "pendingFreinds" => $requestedFriends
+        $chatMessages = $this->chatMessages();
 
-        ];
-        return view("friends", $data);
+        if ($session->get('auth')){
+            $data = [
+                "site_title" => "Friends",
+                "scores" => $scores,
+                "name" => $session->get("username"),
+                "pendingFreinds" => $requestedFriends,
+                "chatContents" => $chatMessages
+
+            ];
+            return view("friends", $data);
+        }
 
     } 
+
+    private function chatMessages(){
+        $setModel = new SettingsModel();
+
+        $session = session();
+        $id = $session->get("id");
+        $famMode = $setModel->getSettingUser($id, "Family Mode")["active"];
+
+        if ($famMode){
+           
+        }else{
+            if (file_exists("log.html") && filesize("log.html") > 0) {
+                $contents = file_get_contents("log.html");
+                return $contents;
+            }
+        }
+    }
 
     public function friendRequests(){
         $session = session();
         $model = new UserModel();
         $friendModel = new FreindsModel;
+        $userModel =  new UserModel();
+
         if (isset($_POST["type"])){
-            $friendName = esc(htmlspecialchars($_POST["username"]));
             $id = $session->get("id");
 
             if ($_POST['type'] == "request"){
+                $friendName = esc(htmlspecialchars($_POST["username"]));
 
                 $userList = $model->findAll();
 
@@ -111,6 +144,7 @@ class Friends extends BaseController
             }
 
             if ($_POST['type'] == "accept") {
+                $friendName = esc(htmlspecialchars($_POST["username"]));
                 $friendId = $model->getIdFromUser($friendName);
                 $thing = $friendModel->acceptFriends($session->get("id"), $friendId);
 
@@ -118,10 +152,27 @@ class Friends extends BaseController
             }
 
             if ($_POST['type'] == "decline") {
+                $friendName = esc(htmlspecialchars($_POST["username"]));
                 $friendId = $model->getIdFromUser($friendName);
                 $thing = $friendModel->declineFriends($session->get("id"), $friendId);
 
                 return "success";
+            }
+
+            if ($_POST['type'] == "delete") {
+                $username = esc($_POST["username"]);
+                $freindid = $userModel->getIdFromUser($username);
+
+                $friendModel->deleteFriend($session->get("id"), $freindid);
+
+                return "success";
+            }
+
+            if ($_POST["type"] == "chatmsg"){
+                $message = esc($_POST["msg"]) ?? null;
+                $session = session();
+                $htmlSting = "<div class='msgln'><span class='chat-time'>" . date("g:i A") . "</span> <b class='user-name'>" . $session->get("username") . "</b>" . $message . "<br></div>";
+                file_put_contents("log.html", $htmlSting, FILE_APPEND | LOCK_EX);
             }
         }
     }

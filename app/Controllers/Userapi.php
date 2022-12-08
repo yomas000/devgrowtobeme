@@ -6,6 +6,7 @@ use CodeIgniter\RESTful\ResourceController;
 use App\Models\UserModel;
 use App\Models\ScoreModel;
 use App\Models\ApiModel;
+use App\Models\SettingsModel;
 
 class Userapi extends ResourceController
 {
@@ -63,9 +64,11 @@ class Userapi extends ResourceController
         if ($this->authorize()){
             $id = esc($id);
             $scoreModel = new ScoreModel;
+            $settingsModel = new SettingsModel();
 
             $this->model->delete($id);
             $scoreModel->delete($id);
+            $settingsModel->where("userid", $id)->delete();
 
             return $this->respond(["success"=> true]);
         }

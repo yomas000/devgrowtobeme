@@ -1,4 +1,11 @@
-window.onload = function() {document.getElementById("signInButton").addEventListener("click", signIn);}
+window.onload = function () {
+    document.getElementById("signInButton").addEventListener("click", signIn); 
+    document.getElementById("usermsg").addEventListener('keydown', (e) => {
+        if (e.key == "Enter"){
+            sendMessage();
+        }
+    })
+}
 
 function sendFriendRequest(){
     var statusDiv = document.getElementById("status");
@@ -54,6 +61,20 @@ function noFriends(e) {
     }, function (data, status) {
         location.reload();
     });
+}
+
+function deleteFriend(e){
+
+    if (confirm("Do you want to delete " + e.id + " as a freind?")){
+        $.post("/friends", {
+
+            "type": "delete",
+            "username": e.id
+    
+        }, function (data, status) {
+            location.reload();
+        });
+    }
 }
 
 function sendFeedback() {
@@ -268,3 +289,50 @@ function deleteAdmin(e){
         })
     }
 }
+
+function updateSetting(e){
+    var settingName = e.id;
+    var active = e.checked;
+
+    $.post("/account", {
+        settingName: settingName,
+        active: active
+    }, function(result){
+        
+    })
+}
+
+function sendMessage(){
+
+    var message = $("#usermsg")[0].value;
+
+    $("#usermsg")[0].value = "";
+
+    $.post("/friends", {
+
+        "type": "chatmsg",
+        "msg": message
+
+    }, function (data, status) {
+        loadLog();
+    });
+}
+
+function loadLog() {
+    var oldscrollHeight = $("#chatbox")[0].scrollHeight - 20; //Scroll height before the request
+    $.ajax({
+        url: "log.html",
+        cache: false,
+        success: function (html) {
+            $("#chatbox").html(html); //Insert chat log into the #chatbox div   
+
+            //Auto-scroll           
+            var newscrollHeight = $("#chatbox")[0].scrollHeight - 20; //Scroll height after the request
+            if (newscrollHeight > oldscrollHeight) {
+                $("#chatbox").animate({ scrollTop: newscrollHeight }, 'normal'); //Autoscroll to bottom of div
+            }
+        },
+    });
+}
+
+setInterval(loadLog, 2500);
