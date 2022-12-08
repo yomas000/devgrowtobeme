@@ -143,7 +143,10 @@ function resizeHandler () {
 
 window.setInterval(function(){
   var url = window.location.href;
-    var id = url.slice(-1);
+  
+  const rgx = /games\/(.*)$/;
+  var myArray = rgx.exec(url);
+  var id = parseInt(myArray[1]);
 
     score = parseInt(score);
 
