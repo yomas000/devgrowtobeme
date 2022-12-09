@@ -162,13 +162,15 @@ window.setInterval(function(){
 
 
 function addLetters(item, index, arr){
+  arr[index].highestSpeed += 1;
+  arr[index].lowestSpeed += 1;
 
   const x = Math.random() < 0.5 ? 0 : canvas.width;
-    const y = Math.random() * canvas.height;
-    const dX = center.x - x;
-    const dY = center.y - y;
-    const norm = Math.sqrt(dX ** 2 + dY ** 2);
-    const speed = generateRandomNumber(letter.lowestSpeed, letter.highestSpeed);
+  const y = Math.random() * canvas.height;
+  const dX = center.x - x;
+  const dY = center.y - y;
+  const norm = Math.sqrt(dX ** 2 + dY ** 2);
+  const speed = generateRandomNumber(letter.lowestSpeed, letter.highestSpeed);
 
 
   arr[index].speedX += dX / norm * speed;
