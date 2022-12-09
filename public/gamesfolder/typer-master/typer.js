@@ -15,8 +15,8 @@ const letter = {
   color: '#0095DD',
   width: 15,
   height: 20,
-  highestSpeed: 1.6,
-  lowestSpeed: 0.6,
+  highestSpeed: 5,
+  lowestSpeed: 0.8,
   probability: 0.02
 };
 
@@ -143,7 +143,7 @@ function resizeHandler () {
 
 window.setInterval(function(){
   var url = window.location.href;
-  
+
   const rgx = /games\/(.*)$/;
   var myArray = rgx.exec(url);
   var id = parseInt(myArray[1]);
@@ -156,6 +156,22 @@ window.setInterval(function(){
         "id": id
 
     }, function (data, status) {
-        console.log(data)
+        //letters.forEach(addLetters);
     });
 }, 2000);
+
+
+function addLetters(item, index, arr){
+
+  const x = Math.random() < 0.5 ? 0 : canvas.width;
+    const y = Math.random() * canvas.height;
+    const dX = center.x - x;
+    const dY = center.y - y;
+    const norm = Math.sqrt(dX ** 2 + dY ** 2);
+    const speed = generateRandomNumber(letter.lowestSpeed, letter.highestSpeed);
+
+
+  arr[index].speedX += dX / norm * speed;
+  arr[index].speedY += dY / norm * speed;
+  console.log(arr);
+}
